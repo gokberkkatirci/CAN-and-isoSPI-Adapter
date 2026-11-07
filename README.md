@@ -1,10 +1,10 @@
-# GK CAN + isoSPI Adapter
+# CAN and isoSPI Adapter
 
-An **85 × 70 mm, four-layer USB adapter** for Classical CAN and two isolated isoSPI links. A socketed Arduino Nano R4 handles USB communication and programming through its onboard USB-C port.
+An **82 × 64 mm, four-layer USB adapter** for Classical CAN and two isolated isoSPI links. A socketed Arduino Nano R4 handles USB communication and programming through its onboard USB-C port.
 
-![KiCad render of the assembled R0A carrier](docs/images/board-r0a.png)
+![Straight-on KiCad top render of the assembled R0B carrier](docs/images/board-r0b.png)
 
-> **R0A bench prototype.** KiCad 10.0.6 reports zero ERC, DRC, unconnected-item and schematic-parity findings. Hardware bring-up, signal integrity and system insulation qualification are pending.
+> **R0B bench prototype.** KiCad 10.0.6 reports zero findings under the configured ERC, DRC and schematic-parity checks. Hardware bring-up, signal integrity and system insulation qualification are pending.
 
 | Interface | Hardware |
 |---|---|
@@ -29,14 +29,19 @@ The two right terminals are **MAIN** and **AUX**. Each uses a floating different
 | D2 / D3 | MAIN / AUX interrupt status |
 | D6 / D7 | MAIN / AUX wake status |
 
-The first bench target is ADBMS1818 at up to 1 Mbit/s. ADBMS6832 operation at 2 Mbit/s is a validation target with the actual cable and slave-board network. D8 defaults low, so firmware must enable the CAN converter after establishing the allowed USB power state. The user supplies the firmware.
+The first bench target is ADBMS1818 at up to 1 Mbit/s. ADBMS6832 operation at 2 Mbit/s is a validation target with the actual cable and slave-board network. The [Nano R4 firmware](firmware/README.md) provides USB serial commands for CAN transmit and receive, raw MAIN/AUX isoSPI transfers, and status. CAN power stays off until explicitly opened.
+
+The six labeled test pads provide USB 5 V and ground, CAN 5 V and ground, CAN enable, and CAN fault. Use the reference ground for the domain being measured. See the [R0B test point map](docs/r0b.md).
 
 ## Design files
 
 - [KiCad project](hardware/kicad/GK_CAN_isoSPI_adapter.kicad_pro), [schematic](hardware/kicad/GK_CAN_isoSPI_adapter.kicad_sch) and [routed PCB](hardware/kicad/GK_CAN_isoSPI_adapter.kicad_pcb)
+- [Firmware and flash instructions](firmware/README.md)
 - [3D model sources and coverage](hardware/kicad/models/README.md)
-- [R0A fabrication and assembly review files](manufacturing/prototype/R0A/README.md)
+- [R0B fabrication and assembly review files](manufacturing/prototype/R0B/README.md)
 - [Design rationale](docs/hardware-plan.md), [references](docs/references.md) and [bench verification plan](tests/verification-plan.md)
+
+See the [public repository handoff](docs/publication.md) for publication and licensing details.
 
 ## Prototype limits
 

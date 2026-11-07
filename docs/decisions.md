@@ -11,7 +11,7 @@ Updated 2026-11-07. The planning decisions below precede the [R0A prototype impl
 - The user's 1 kV requirement means working voltage. Battery-context interpretation: 1,000 V DC continuous across each isoSPI barrier.
 - Select two Bourns SM91801AL-E transformers. Do not substitute a functional-insulation part without reviewing the system requirement.
 - Four layers, <100 × 100 mm, predominantly 1206 passives, switchable CAN termination and opposite-edge screw terminals.
-- Separate project directory with native KiCad source and a GitHub remote.
+- Separate project directory with native KiCad source and a GitHub remote. R0B adds compact placement, diagnostic pads and Nano R4 bench firmware.
 
 ## Information and engineering work needed before schematic freeze
 

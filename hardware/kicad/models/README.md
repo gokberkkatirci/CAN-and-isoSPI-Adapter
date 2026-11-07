@@ -1,6 +1,6 @@
 # 3D models
 
-All **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0A. Four NPTH mounting holes are modeled by the board geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
+All **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0B. The mounting holes and six exposed test pads are represented by PCB geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
 
 | References | Model in the portable project | Exact CAD source or basis |
 |---|---|---|

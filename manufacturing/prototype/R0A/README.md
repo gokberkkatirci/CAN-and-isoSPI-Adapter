@@ -1,6 +1,6 @@
 # R0A manufacturing review package
 
-**Status: bench prototype.** Review fabrication preview, stock, placement orientation, mechanical fit and intended test scope before order submission.
+**Archived bench prototype.** Current design: [R0B](../R0B/README.md). The source checksums below apply to commit `0438f4c`.
 
 | File | Contents |
 |---|---|

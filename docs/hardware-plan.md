@@ -1,10 +1,10 @@
 # Hardware plan — P0
 
-Design baseline, 2026-11-07. R0A implementation details and checks are in the [prototype notes](r0a.md). Source identifiers refer to [references](references.md). Values labelled provisional are engineering proposals, not verified production specifications.
+Design baseline, 2026-11-07. The [R0A electrical notes](r0a.md) describe the circuit implemented in the [R0B layout](r0b.md). Source identifiers refer to [references](references.md). Values labelled provisional are engineering proposals, not verified production specifications.
 
 ## Requirements and selection
 
-Use a socketed Arduino Nano R4 with headers (ABX00143), one Classical CAN interface up to 1 Mbit/s, and two isoSPI ports through an ADBMS6822. Two ports allow access to either end of a reversible chain or two independent chains; a single shared SPI bus services them sequentially. The firmware is user-owned. Native USB carries commands and acquired data and supports programming.
+Use a socketed Arduino Nano R4 with headers (ABX00143), one Classical CAN interface up to 1 Mbit/s, and two isoSPI ports through an ADBMS6822. Two ports allow access to either end of a reversible chain or two independent chains; a single shared SPI bus services them sequentially. The [USB bridge firmware](../firmware/README.md) exposes raw isoSPI transfers for the host application. Native USB carries commands and acquired data and supports programming.
 
 The user selected 1 kV **working voltage**. For this battery application, the design interpretation is **1,000 V DC continuous across each isoSPI transformer barrier**. Select **two Bourns SM91801AL-E**. Basic insulation is the component baseline; whether the complete application needs reinforced insulation remains a system-level decision. The CAN barrier is a separate specification and is not assigned a 1 kV working rating by this selection.
 

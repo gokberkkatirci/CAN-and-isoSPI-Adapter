@@ -1,6 +1,6 @@
 # Manufacturing workflow
 
-The [R0A prototype exports](prototype/R0A/README.md) contain draft BOM, CPL, Gerber and drill data from the checked native source. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
+The [R0B prototype exports](prototype/R0B/README.md) contain draft BOM, CPL, Gerber and drill data from the checked native source. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
 
 ## Release sequence
 

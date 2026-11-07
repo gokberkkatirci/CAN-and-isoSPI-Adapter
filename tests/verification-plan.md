@@ -1,6 +1,6 @@
 # Verification and acceptance plan
 
-R0A schematic ERC, PCB DRC and schematic parity passed in KiCad 10.0.6. Hardware and firmware tests are pending. See [R0A notes](../docs/r0a.md).
+R0B schematic ERC, PCB DRC and schematic parity passed in KiCad 10.0.6. The Nano R4 sketch compiled with Arduino Renesas core 1.6.0. Hardware bring-up remains pending. See [R0B notes](../docs/r0b.md).
 
 ## Before CAD release
 
