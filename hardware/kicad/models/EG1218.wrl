@@ -1,0 +1,10 @@
+#VRML V2.0 utf8
+# E-Switch EG1218 drawing-based visual model.
+Transform { translation 0.000000 0.000000 0.492126 children [ Shape { appearance Appearance { material Material { diffuseColor 0.085 0.09 0.1 } } geometry Box { size 4.566929 1.574803 0.984252 } } ] }
+Transform { translation 0.000000 0.000000 1.555118 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 4.547244 1.566929 1.141732 } } ] }
+Transform { translation -0.492126 0.000000 2.519685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.085 0.09 0.1 } } geometry Box { size 0.787402 0.787402 0.787402 } } ] }
+Transform { translation 0.000000 -0.779528 0.531496 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 4.370079 0.047244 1.062992 } } ] }
+Transform { translation 0.000000 0.779528 0.531496 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 4.370079 0.047244 1.062992 } } ] }
+Transform { translation -0.984252 0.000000 -0.885827 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.196850 1.850394 } } ] }
+Transform { translation 0.000000 0.000000 -0.885827 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.196850 1.850394 } } ] }
+Transform { translation 0.984252 0.000000 -0.885827 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.196850 1.850394 } } ] }

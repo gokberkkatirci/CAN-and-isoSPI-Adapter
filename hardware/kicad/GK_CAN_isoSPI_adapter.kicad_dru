@@ -1,0 +1,9 @@
+(version 1)
+# Copper spacing guard for the two floating isoSPI cable nets.
+# PCB surface creepage, pins, enclosure and material still require review.
+(rule "isoSPI MAIN copper separation"
+  (constraint clearance (min 8mm))
+  (condition "((A.NetName == '/MAIN_P' || A.NetName == '/MAIN_N' || A.NetName == 'unconnected-(T1-SEC_CT-Pad5)') && B.NetName != '/MAIN_P' && B.NetName != '/MAIN_N' && B.NetName != 'unconnected-(T1-SEC_CT-Pad5)') || ((B.NetName == '/MAIN_P' || B.NetName == '/MAIN_N' || B.NetName == 'unconnected-(T1-SEC_CT-Pad5)') && A.NetName != '/MAIN_P' && A.NetName != '/MAIN_N' && A.NetName != 'unconnected-(T1-SEC_CT-Pad5)')"))
+(rule "isoSPI AUX copper separation"
+  (constraint clearance (min 8mm))
+  (condition "((A.NetName == '/AUX_P' || A.NetName == '/AUX_N' || A.NetName == 'unconnected-(T2-SEC_CT-Pad5)') && B.NetName != '/AUX_P' && B.NetName != '/AUX_N' && B.NetName != 'unconnected-(T2-SEC_CT-Pad5)') || ((B.NetName == '/AUX_P' || B.NetName == '/AUX_N' || B.NetName == 'unconnected-(T2-SEC_CT-Pad5)') && A.NetName != '/AUX_P' && A.NetName != '/AUX_N' && A.NetName != 'unconnected-(T2-SEC_CT-Pad5)')"))
