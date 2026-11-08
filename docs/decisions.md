@@ -48,4 +48,4 @@ Complete DRC, layer-by-layer barrier inspection, enclosure/metal clearance revie
 | Pogo-pin preload and Teensy socket retention | Check with physical parts |
 | SM91801AL-E supply, six per board | JLCPCB stock one; pre-order or consign |
 | Six-port worst-case current | About 110 mA per transmitting port; confirm on the bench |
-| DSUB flange position | 8.10 mm front-row offset read from the Connfly drawing; confirm with a part |
+| DSUB-9 orientation | Vertical (mating face up) Connfly DS1034; confirm fit with a part and the enclosure lid |

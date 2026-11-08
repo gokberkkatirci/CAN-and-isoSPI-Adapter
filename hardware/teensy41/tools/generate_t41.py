@@ -663,8 +663,8 @@ def silkscreen(board):
     for n in range(1, 7):
         cx = D.CAN_CX[n - 1]
         add_text(board, "CAN%d" % n, cx + 2.5, 86.0, 1.2, rot=90, bold=True)
-        add_text(board, "120R", cx - 8.5, 100.8, 0.8)
-        add_text(board, "OFF", cx - 3.5, 100.8, 0.8)
+        add_text(board, "120R", cx - 8.5, 100.3, 0.8)
+        add_text(board, "OFF", cx - 3.5, 100.3, 0.8)
         add_text(board, "PWR", cx - 14.0, 100.4, 0.8)
     for n in range(1, 6):
         x = (D.CAN_CX[n - 1] + D.CAN_CX[n]) / 2.0
@@ -683,7 +683,14 @@ def silkscreen(board):
     add_text(board, "5V", 7.0, 76.0, 0.8)
     add_text(board, "OK", 89.0, 50.0, 0.8)
     add_text(board, "ERR", 89.5, 54.0, 0.8)
-    for x, y, t in ((92.0, 48.0, "5V"), (96.0, 48.0, "GND"), (100.0, 48.0, "3V3"), (92.0, 57.2, "FLT"), (96.0, 57.2, "D32")):
+    tp_labels = [
+        (92.0, 46.0, "5V"), (96.0, 46.0, "GND"), (100.0, 46.0, "3V3"), (104.0, 46.0, "VBUS"),
+        (92.0, 50.0, "FLT"), (96.0, 50.0, "D32"), (100.0, 50.0, "D+"), (104.0, 50.0, "D-"),
+        (120.0, 46.0, "MOSI"), (124.0, 46.0, "MISO"), (128.0, 46.0, "SCK"),
+        (132.0, 46.0, "TX1"), (136.0, 46.0, "RX1"),
+        (120.0, 50.0, "MOSI1"), (124.0, 50.0, "MISO1"), (128.0, 50.0, "SCK1"),
+    ]
+    for x, y, t in tp_labels:
         add_text(board, t, x, y, 0.8)
     add_text(board, D.TITLE, 160.0, 50.0, 1.6, bold=True)
     add_text(board, "%s %s  %s" % (D.PROJECT, D.REV, D.DATE), 160.0, 53.5, 1.0)

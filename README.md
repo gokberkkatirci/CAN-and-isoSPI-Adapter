@@ -6,7 +6,7 @@ Two open-hardware USB adapters for battery-management bench work. Both connect i
 |---|---|---|
 | Controller | Arduino Nano R4 (socketed) | Teensy 4.1 (socketed) |
 | USB | Nano's own USB-C | Carrier USB-C for power and data |
-| CAN ports | 1, screw terminal | 6, DSUB-9 female (CiA 303-1 pinout) |
+| CAN ports | 1, screw terminal | 6, vertical DSUB-9 female (CiA 303-1 pinout) |
 | CAN isolation | ISO1042 with isolated 5 V supply | Six independent ISO1042 channels, each with its own isolated 5 V supply |
 | CAN termination | 120 Ω slide switch | 120 Ω slide switch on every port |
 | isoSPI ports | 2 (MAIN, AUX) | 6 |
@@ -17,7 +17,7 @@ Two open-hardware USB adapters for battery-management bench work. Both connect i
 
 ## Nano R4 adapter (R0C)
 
-![KiCad top render of the Nano R4 adapter](docs/images/board-r0b.png)
+![KiCad 3D render of the Nano R4 adapter](docs/images/board-r0c.png)
 
 | Interface | Hardware |
 |---|---|
@@ -45,7 +45,9 @@ R0C differs from R0B in one connection: the SN6505B CLK pin is now tied to groun
 
 ## Teensy 4.1 adapter (R0A)
 
-![KiCad top render of the Teensy 4.1 adapter](docs/images/board-t41-r0a.png)
+![KiCad 3D render of the Teensy 4.1 adapter](docs/images/board-t41-r0a.png)
+
+[Top view](docs/images/board-t41-r0a-top.png)
 
 Six isolated CAN ports on DSUB-9 connectors along one long edge and six isoSPI terminals along the opposite long edge. **Channel N** is one column: CAN N sits directly opposite isoSPI N, numbered 1–6 from left to right, and the same number is used on the silkscreen, in the schematic, in reference designators and in the firmware. Each adapter reports a unique ID and an optional stored label, so several can share one host. A single USB-C connector supplies power and USB data; the data lines reach the Teensy through two pogo pins that touch its USB device pads.
 
@@ -59,6 +61,7 @@ Six isolated CAN ports on DSUB-9 connectors along one long edge and six isoSPI t
 | isoSPI | Three ADBMS6822, six SM91801AL-E transformers, six two-pole terminals |
 | USB-C | 5.1 kΩ CC pull-downs read by the Teensy for power budgeting, USBLC6 ESD, 2 A PTC, SMAJ5.0A |
 
+- [User manual](docs/user-manual-t41.md) — assembly, flashing, commands and usage examples
 - [Hardware notes and pin map](hardware/teensy41/README.md)
 - [KiCad project](hardware/teensy41/CAN6_isoSPI6_T41.kicad_pro), generated from [design.py](hardware/teensy41/tools/design.py)
 - [Teensy firmware](firmware/README.md#teensy-41-adapter)

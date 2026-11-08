@@ -32,7 +32,7 @@ TEENSY_ROW_B_Y = TEENSY_YC - 7.62                   # VIN, GND, 3V3, 23..13, GND
 BARRIER_Y0 = 83.5                                   # CAN isolation band
 BARRIER_Y1 = 88.5
 ISO_BAND_Y = 23.5                                   # isoSPI 8 mm band ends here
-DSUB_ORIGIN_DY = BOARD_H - 10.94                    # rear pin row (pins 1-5)
+DSUB_ORIGIN_DY = BOARD_H - 0.5 - 8.215              # vertical DSUB: pin 1 row, courtyard ends 0.5 mm from the edge
 
 STD = "std"     # KiCad standard footprint libraries
 LOC = "T41"     # project-local library (T41Carrier.pretty)
@@ -68,8 +68,8 @@ PARTS = {
     "TLV767": ("TLV76750DGNR", "TLV76750DGNR", "Texas Instruments", "C3752807", "Package_SO", "MSOP-8-1EP_3x3mm_P0.65mm_EP1.73x1.85mm", "SMT"),
     "PESD":   ("PESD2CANFD24V-TR", "PESD2CANFD24V-TR", "Nexperia", "C552486", "Package_TO_SOT_SMD", "SOT-23", "SMT"),
     "EG1218": ("EG1218", "EG1218", "E-Switch", "C273394", LOC, "EG1218", "THT"),
-    "DSUB9F": ("DSUB-9 female", "DS1037-09FNAKT74-0CC", "CONNFLY", "C75749", "Connector_Dsub",
-               "DSUB-9_Socket_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm", "THT"),
+    "DSUB9F": ("DSUB-9 female", "DS1034-09FBN044", "CONNFLY", "C19268322", "Connector_Dsub",
+               "DSUB-9_Socket_Vertical_P2.77x2.84mm_MountingHoles", "THT"),
     "MCP2518": ("MCP2518FDT-E/SL", "MCP2518FDT-E/SL", "Microchip", "C626758", "Package_SO", "SOIC-14_3.9x8.7mm_P1.27mm", "SMT"),
     "XTAL40": ("40MHz", "X322540MPB4SI", "YXC", "C9010", "Crystal", "Crystal_SMD_3225-4Pin_3.2x2.5mm", "SMT"),
     "ADBMS":  ("ADBMS6822WCCSZ-RL", "ADBMS6822WCCSZ-RL", "Analog Devices", "C19190031", LOC, "ADBMS6822_05-08-7057", "SMT"),
@@ -205,9 +205,29 @@ R("R7", "R1k", "LED_OK", "LED_OK_A", (80.0, 50.0, 0), G)
 add("D4", "led", "LEDG", {"1": "GND", "2": "LED_OK_A"}, (85.0, 50.0, 180), G)
 R("R8", "R1k", "LED_ERR", "LED_ERR_A", (80.0, 54.0, 0), G)
 add("D5", "led", "LEDR", {"1": "GND", "2": "LED_ERR_A"}, (85.0, 54.0, 180), G)
-for i, (net, x) in enumerate([("+5V", 92.0), ("GND", 96.0), ("+3V3", 100.0), ("CAN_PWR_FAULT", 92.0),
-                              ("T_SPARE32", 96.0)]):
-    y = 50.0 if i < 3 else 55.0
+TEST_POINTS = [
+    # row 1 — power rails
+    ("+5V",       92.0, 48.0),
+    ("GND",       96.0, 48.0),
+    ("+3V3",     100.0, 48.0),
+    ("VBUS",     104.0, 48.0),
+    # row 2 — fault, spare, USB data
+    ("CAN_PWR_FAULT", 92.0, 52.0),
+    ("T_SPARE32",     96.0, 52.0),
+    ("USB_DP",       100.0, 52.0),
+    ("USB_DM",       104.0, 52.0),
+    # row 3 — isoSPI SPI bus + representative CAN TX/RX
+    ("ISO_MOSI", 120.0, 48.0),
+    ("ISO_MISO", 124.0, 48.0),
+    ("ISO_SCK",  128.0, 48.0),
+    ("CAN1_TX",  132.0, 48.0),
+    ("CAN1_RX",  136.0, 48.0),
+    # row 4 — MCP2518FD SPI1 bus
+    ("MCP_MOSI", 120.0, 52.0),
+    ("MCP_MISO", 124.0, 52.0),
+    ("MCP_SCK",  128.0, 52.0),
+]
+for i, (net, x, y) in enumerate(TEST_POINTS):
     add("TP%d" % (i + 1), "testpoint", "TP", {"1": net}, (x, y, 0), G)
 for i, (x, y) in enumerate([(4.5, 4.5), (211.5, 4.5), (4.5, 115.5), (211.5, 115.5), (108.0, 4.5), (108.0, 56.0)]):
     add("H%d" % (i + 1), "hole", "HOLE", {}, (x, y, 0), G)
@@ -253,7 +273,7 @@ for n in range(1, 7):
         {"1": I("5V"), "2": I("5V"), "3": NC, "4": I("GND"), "5": I("RECT"), "6": I("GND"), "7": NC,
          "8": I("RECT"), "9": I("GND")}, (cx + 9.0, 99.5, 0), G)
     add("D%d" % (b + 3), "PESD2CANFD", "PESD", {"1": I("H"), "2": I("L"), "3": I("GND")}, (cx - 4.5, 96.0, 0), G)
-    add("SW%d" % (b + 1), "EG1218", "EG1218", {"1": I("TERM"), "2": I("H"), "3": NC}, (cx - 6.0, 103.8, 0), G,
+    add("SW%d" % (b + 1), "EG1218", "EG1218", {"1": I("TERM"), "2": I("H"), "3": NC}, (cx - 6.0, 103.3, 0), G,
         value="120R termination")
     R("R%d" % (b + 1), "R240", I("TERM"), I("L"), (cx - 10.5, 97.5, 90), G)
     R("R%d" % (b + 2), "R240", I("TERM"), I("L"), (cx - 13.5, 97.5, 90), G)

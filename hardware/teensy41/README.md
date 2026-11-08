@@ -7,7 +7,7 @@ Open [CAN6_isoSPI6_T41.kicad_pro](CAN6_isoSPI6_T41.kicad_pro) in **KiCad 10.0.6*
 ## Board
 
 - **216 × 120 mm**, six layers, 1.6 mm, six M3 holes, all passives 1206.
-- **Bottom edge:** six DSUB-9 female connectors, CAN1 on the left. Each has its own 120 Ω slide switch (**120R** / **OFF**) and a green LED that lights when its isolated supply is on.
+- **Bottom edge:** six vertical DSUB-9 female connectors (mating face up, 4-40 standoffs), CAN1 on the left. Each has its own 120 Ω slide switch (**120R** / **OFF**) and a green LED that lights when its isolated supply is on.
 - **Top edge:** six isoSPI terminals, each directly opposite the CAN port with the same number; **+** is on the left of each pair.
 - **Left edge:** USB-C for power and data. The Teensy plugs into J2/J3 with its USB end toward the USB-C connector.
 
@@ -36,6 +36,29 @@ Channel **N** is one column of the board: DSUB-9 **CAN N** on the bottom edge an
 | 6 | MCP2518FD U605 | U901 | 1 |
 
 isoSPI transformers and terminals use T7xx/J7xx for channels 1–2, T8xx/J8xx for 3–4 and T9xx/J9xx for 5–6. Each adapter reports a factory-unique ID over USB, and a user label can be stored in EEPROM, so several adapters on one host can be addressed reliably. See the [firmware commands](../../firmware/README.md#usb-serial-commands-1).
+
+## Test points
+
+Sixteen 1.5 mm test pads are placed in two groups between the Teensy and the right mounting hole. Probe them with an oscilloscope or multimeter during bring-up.
+
+| Label | Net | Group | Row |
+|---|---|---|---|
+| 5V | +5V | Left | 1 |
+| GND | GND | Left | 1 |
+| 3V3 | +3.3V | Left | 1 |
+| VBUS | USB VBUS | Left | 1 |
+| FLT | CAN_PWR_FAULT | Left | 2 |
+| D32 | Teensy pin 32 (spare) | Left | 2 |
+| D+ | USB_DP | Left | 2 |
+| D- | USB_DM | Left | 2 |
+| MOSI | ISO_MOSI (isoSPI SPI) | Right | 1 |
+| MISO | ISO_MISO | Right | 1 |
+| SCK | ISO_SCK | Right | 1 |
+| TX1 | CAN1_TX (FlexCAN1) | Right | 1 |
+| RX1 | CAN1_RX | Right | 1 |
+| MOSI1 | MCP_MOSI (SPI1) | Right | 2 |
+| MISO1 | MCP_MISO | Right | 2 |
+| SCK1 | MCP_SCK | Right | 2 |
 
 ## 3D view
 

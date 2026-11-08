@@ -6,4 +6,4 @@ CAN terminal: left edge. MAIN/AUX isoSPI terminals: right edge, with separation 
 
 No board-to-board mating connector is defined.
 
-Teensy 4.1 adapter (R0A): **216 × 120 mm**, six layers, 1.6 mm, six M3 holes. Six DSUB-9 connectors share the bottom edge (33 mm pitch, flanges at the board edge) and six isoSPI terminals the top edge. The Teensy sits 11 mm above the carrier on 8.5 mm sockets; the two pogo pins under its USB end need that height. USB-C is on the left edge next to the Teensy's USB end. Check the DSUB flange position against the Connfly DS1037 drawing and a physical part before panel cut-outs are made.
+Teensy 4.1 adapter (R0A): **216 × 120 mm**, six layers, 1.6 mm, six M3 holes. Six vertical DSUB-9 connectors sit along the bottom edge (33 mm pitch, mating faces up, so the enclosure lid needs six DSUB cut-outs) and six isoSPI terminals the top edge. The Teensy sits 11 mm above the carrier on 8.5 mm sockets; the two pogo pins under its USB end need that height. USB-C is on the left edge next to the Teensy's USB end. Check the DSUB positions against the Connfly DS1034 drawing and a physical part before lid cut-outs are made.

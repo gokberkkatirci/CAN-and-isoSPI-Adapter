@@ -12,14 +12,34 @@ TEAL = (.03, .44, .49)
 WHITE = (.86, .86, .82)
 
 
+METALS = {TIN, GOLD}
+
+
+def material(color):
+    """Glossy material for metal finishes, satin for plastics and solder mask."""
+    rgb = ' '.join(str(v) for v in color)
+    if color in METALS:
+        return (f'material Material {{ diffuseColor {rgb} specularColor 0.9 0.9 0.85 '
+                f'shininess 0.8 ambientIntensity 0.3 }}')
+    return (f'material Material {{ diffuseColor {rgb} specularColor 0.25 0.25 0.25 '
+            f'shininess 0.25 ambientIntensity 0.2 }}')
+
+
 def box(x, y, z, dx, dy, dz, color):
     """Positions and dimensions in millimetres. VRML KiCad units are 0.1 in."""
     pos = ' '.join(f'{v/2.54:.6f}' for v in (x,y,z))
     size = ' '.join(f'{v/2.54:.6f}' for v in (dx,dy,dz))
-    rgb = ' '.join(str(v) for v in color)
     return (f'Transform {{ translation {pos} children [ Shape {{ '
-            f'appearance Appearance {{ material Material {{ diffuseColor {rgb} }} }} '
+            f'appearance Appearance {{ {material(color)} }} '
             f'geometry Box {{ size {size} }} }} ] }}')
+
+
+def cyl(x, y, z, d, h, color):
+    """Vertical cylinder centred at (x, y, z), diameter d, height h (mm)."""
+    pos = ' '.join(f'{v/2.54:.6f}' for v in (x,y,z))
+    return (f'Transform {{ translation {pos} rotation 1 0 0 1.5708 children [ Shape {{ '
+            f'appearance Appearance {{ {material(color)} }} '
+            f'geometry Cylinder {{ radius {d/2/2.54:.6f} height {h/2.54:.6f} }} }} ] }}')
 
 
 def write(name, description, objects):
@@ -101,29 +121,51 @@ def teensy41():
     # Model origin is pin 1 (GND) of the GND/0..32 socket row; pins run along -Y,
     # the second row is at +15.24 mm X. The Teensy rests on its pin-header
     # spacers on top of 8.5 mm sockets, so the module underside is 11.0 mm up.
-    PJRC = (.02, .36, .16)
-    z0 = 11.0
-    objects = [box(7.62, -29.21, z0+.8, 17.78, 60.96, 1.6, PJRC),
-               box(7.62, 1.55, z0+2.9, 7.5, 5.6, 2.6, TIN),            # micro-USB
-               box(7.62, -27.0, z0+2.2, 10.0, 10.0, 1.2, BLACK),      # i.MX RT1062
-               box(7.62, -13.5, z0+2.0, 5.0, 6.0, .9, BLACK),         # flash
-               box(7.62, -53.3, z0+2.4, 11.5, 12.0, 1.6, TIN),        # microSD
-               box(11.6, -37.5, z0+2.0, 3.0, 3.0, .9, BLACK),         # Ethernet PHY
-               box(3.6, -6.0, z0+1.9, 2.0, 1.2, .7, FERRITE),
-               box(2.9, -36.5, z0+2.0, 3.0, 2.5, .8, BLACK),
-               box(4.2, -20.0, z0+2.1, 2.5, 3.2, 1.0, WHITE)]          # program button
+    PJRC = (.02, .40, .18)
+    SILK = (.93, .93, .90)
+    ORANGE = (.95, .45, .05)
+    TAN = (.60, .48, .32)
+    z0, t = 11.0, 1.6
+    top = z0 + t
+    objects = [box(7.62, -29.21, z0 + t / 2, 17.78, 60.96, t, PJRC)]
+    # micro-USB receptacle overhanging the USB end
+    objects += [box(7.62, 1.2, top + 1.3, 7.6, 5.6, 2.6, TIN), box(7.62, 3.9, top + 1.3, 6.6, .3, 1.6, BLACK)]
+    # i.MX RT1062 BGA, QSPI flash (SOIC-8), Ethernet PHY, buck and crystals
+    objects += [box(7.62, -27.0, top + .6, 10.0, 10.0, 1.2, BLACK), box(7.62, -27.0, top + 1.21, 9.0, 9.0, .02, FERRITE)]
+    objects += [box(7.62, -13.5, top + .7, 5.0, 4.0, 1.4, BLACK)]
+    for k in range(4):
+        for side in (-1, 1):
+            objects.append(box(7.62 + side * 3.0, -13.5 - 1.905 + k * 1.27, top + .3, 1.0, .4, .2, TIN))
+    objects += [box(11.6, -37.5, top + .45, 3.0, 3.0, .9, BLACK), box(3.0, -36.0, top + .45, 2.5, 2.5, .9, BLACK),
+                box(12.6, -20.5, top + .4, 3.2, 2.5, .8, TIN), box(3.2, -21.0, top + .35, 2.0, 1.6, .7, TIN)]
+    # microSD socket at the far end
+    objects += [box(7.62, -53.4, top + .75, 11.5, 12.0, 1.5, TIN), box(7.62, -59.2, top + .75, 10.0, .4, .9, BLACK)]
+    # program button, power LED and a scatter of 0402 passives
+    objects += [box(3.4, -6.5, top + .25, 3.4, 2.6, .5, BLACK), box(3.4, -6.5, top + .8, 2.0, 1.4, .6, SILK),
+                box(12.4, -6.0, top + .25, 1.0, .5, .5, ORANGE)]
+    for k, (x, y) in enumerate(((2.5, -10.0), (12.8, -10.5), (2.4, -16.0), (12.8, -15.8), (2.6, -30.5), (12.7, -31.0),
+                                (2.5, -33.0), (12.6, -33.4), (4.5, -40.5), (10.8, -41.0), (2.8, -44.0), (12.5, -44.5),
+                                (6.0, -19.0), (9.5, -19.2), (5.5, -34.5), (9.8, -34.8))):
+        objects.append(box(x, y, top + .2, 1.0, .5, .4, TAN if k % 3 else BLACK))
+    # header pins: plastic spacer under the board, gold pins, plated pads on top
     for x in (0, 15.24):
-        objects.append(box(x, -29.21, 9.75, 2.54, 60.96, 2.5, BLACK))   # header spacer
+        objects.append(box(x, -29.21, 9.75, 2.54, 60.96, 2.5, BLACK))
         for i in range(24):
-            objects += [box(x, -2.54*i, 9.4, .64, .64, 6.0, GOLD),
-                        box(x, -2.54*i, z0+1.65, 1.5, 1.5, .1, TIN)]
-    write('Teensy41-mounted', 'Teensy 4.1 envelope with representative top components, on 8.5 mm sockets.', objects)
+            objects += [cyl(x, -2.54 * i, 8.6, .64, 6.6, GOLD),
+                        cyl(x, -2.54 * i, top + .03, 1.6, .06, GOLD),
+                        cyl(x, -2.54 * i, top + .45, .64, .8, TIN)]
+    # USB host header holes and silkscreen frame
+    for k in range(5):
+        objects.append(cyl(4.69, -6.3 - 2.54 * k, top + .03, 1.4, .06, GOLD))
+    objects += [box(.9, -29.21, top + .01, .15, 58.0, .02, SILK), box(14.34, -29.21, top + .01, .15, 58.0, .02, SILK)]
+    write('Teensy41-mounted', 'Teensy 4.1 with representative top components, resting on 8.5 mm sockets.', objects)
 
 
 def pogo():
-    objects = [box(0, 0, .05, 1.9, 1.9, .1, TIN),
-               box(0, 0, 4.0, 2.0, 2.0, 7.8, GOLD),
-               box(0, 0, 9.6, 1.0, 1.0, 3.4, GOLD)]
+    objects = [cyl(0, 0, .05, 1.9, .1, TIN),
+               cyl(0, 0, 4.0, 2.0, 7.8, GOLD),
+               cyl(0, 0, 8.05, 2.3, .3, GOLD),
+               cyl(0, 0, 9.6, 1.0, 3.2, GOLD)]
     write('Pogo_YTC1P-8535', 'YIYUAN YTC1P-8535-01 pogo pin, 2 mm barrel, 12 mm free length.', objects)
 
 

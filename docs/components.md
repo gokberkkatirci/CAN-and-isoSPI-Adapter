@@ -64,7 +64,7 @@ JLCPCB stock observed through its parts-library search on **2026-11-08**. Quanti
 | Isolated 5 V LDO | TI TLV76750DGNR | 6 | C3752807 | 1,033 |
 | CAN TVS | Nexperia PESD2CANFD24V-TR | 6 | C552486 | 18,015 |
 | 120 Ω switch | E-Switch EG1218 | 6 | C273394 | 1,409 |
-| DSUB-9 female, right angle | Connfly DS1037-09FNAKT74-0CC | 6 | C75749 | 10,896 |
+| DSUB-9 female, vertical | Connfly DS1034-09FBN044 | 6 | C19268322 | 572 |
 | CAN FD controller | Microchip MCP2518FDT-E/SL | 3 | C626758 | 17,875 |
 | 40 MHz crystal, 15 pF | YXC X322540MPB4SI | 3 | C9010 | 65,527 |
 | Dual isoSPI bridge | ADI ADBMS6822WCCSZ-RL | 3 | C19190031 | 5,136 |
