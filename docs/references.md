@@ -21,6 +21,17 @@ Access date: **2026-11-07**. Manufacturer documentation supports technical claim
 17. JLCPCB, *Parts library*, live searches for exact MPNs, 2026-11-07. Observed quantities/C-codes are recorded in [components.md](components.md). A search-engine cached Bourns listing showed six units, while the live UI showed one twice; live UI was used. [Bourns category listing](https://jlcpcb.com/parts/2nd/Inductors_Coils_Chokes/Pulse_Transformers_2296?Manufacturer=BOURNS).
 18. JLCPCB, *PCB capabilities*, *PCB assembly capabilities*, and *How to generate the BOM and centroid file from KiCad*. Used for planning the manufacturing workflow; service eligibility and export schema must be checked again at release. [PCB](https://jlcpcb.com/capabilities/pcb-capabilities/), [assembly](https://jlcpcb.com/capabilities/pcb-assembly-capabilities), [KiCad export](https://jlcpcb.com/help/article/how-to-generate-the-bom-and-centroid-file-from-kicad).
 
+## Teensy 4.1 adapter sources (checked 2026-11-08)
+
+19. PJRC, *Teensy 4.1* product page and pinout cards (front and back). Used for the header pin order, VIN/VUSB cut pads, 250 mA 3.3 V output limit and the USB device D−/D+ pad location. [Product page](https://www.pjrc.com/store/teensy41.html), [back card](https://www.pjrc.com/teensy/card11b_rev4_web.pdf).
+20. Microchip, *MCP2518FD External CAN FD Controller with SPI Interface*, DS20006027B. Used for the SOIC-14 pinout, oscillator and interrupt pins. [Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/External-CAN-FD-Controller-with-SPI-Interface-DS20006027B.pdf).
+21. Texas Instruments, *SN6505A/SN6505B*, SLLSEP9I. Table 9-3 lists Würth 760390014 as a 1:1.3, 5 V → 5 V transformer for use with an LDO; the CLK pin has an internal pull-down. [Datasheet](https://www.ti.com/lit/ds/symlink/sn6505b.pdf).
+22. Texas Instruments, *TPS2553* and *TLV767* datasheets for current-limit resistor and LDO pinout checks. [TPS2553](https://www.ti.com/lit/ds/symlink/tps2553.pdf), [TLV767](https://www.ti.com/lit/ds/symlink/tlv767.pdf).
+23. Bourns, *SM91502AL BMS Transformer*. Checked as an in-stock alternative: 1,000 V DC working voltage but functional insulation and not recommended for new designs. [Datasheet](https://www.bourns.com/docs/product-datasheets/sm91502al.pdf).
+24. Connfly, *DS1037 series D-SUB right angle (7.2 mm)* drawing, used for the DSUB-9 pin rows, board-lock holes and flange offset. [Drawing](https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_CONNFLY-Elec-DS1037-09FNAKT74-0CC_C75749.pdf).
+25. YIYUAN, *YTC1P-8535-01* pogo pin listing (2 mm barrel, 12 mm free length, 11 mm working height). [JLCPCB part](https://jlcpcb.com/partdetail/C5221289).
+26. USB Implementers Forum, *USB Type-C Cable and Connector Specification*, sink CC voltage ranges for default, 1.5 A and 3.0 A current advertisements (used by the firmware power budget).
+
 ## Verification limits
 
 This is a source-backed planning package, not a validated circuit. Full ADBMS6832 design/timing documentation, PCB insulation coordination, exact socket selection, remaining passives/protection, worst-case power calculations and physical tests are unfinished. Component certifications are not transferred automatically to the board. Manufacturer reference circuits inform the design but have not been copied as an already-verified PCB.

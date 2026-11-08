@@ -1,6 +1,6 @@
 # 3D models
 
-All **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0B. The mounting holes and six exposed test pads are represented by PCB geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
+Nano R4 adapter: all **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0B and R0C. The mounting holes and six exposed test pads are represented by PCB geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
 
 | References | Model in the portable project | Exact CAD source or basis |
 |---|---|---|
@@ -18,3 +18,16 @@ The portable models load without a vendor account or downloads. Regenerate the o
 The Arduino and E-Switch STEP files were retrieved for local use. The Würth download returned HTTP 403 and the Bourns download could not be retrieved during this pass. Files from suppliers belong under the ignored `vendor/` directory so the public repository can be cloned without redistributing their CAD. Exact models may be substituted through the footprint's **3D Models** tab.
 
 For a local vendor-model view, the downloaded Nano board can be added on J1 with an offset of **(−1.27, 3.81, 9.8) mm** and Z rotation of **90°**. The stock ABX00142 STEP omits the plug-in headers. The EG1218 STEP aligns at SW1 with a **+0.4 mm Z offset**. Both were checked together in a KiCad render. The original portable preview remains the default.
+
+## Teensy 4.1 adapter
+
+Every fitted footprint on the Teensy board has a model; only the test pads and mounting holes are left as PCB geometry. Standard parts (1206 passives, SOT-23, SOT-23-6, SOIC, MSOP, SMA, SOD-123, 1206 LEDs, 3225 crystal, PTC, DSUB-9, Phoenix terminals and 1 × 24 sockets) use the KiCad 10 library. These drawing-based VRML models were added for it:
+
+| References | Model | Basis |
+|---|---|---|
+| U701, U801, U901 / T701–T902 / T101–T601 / SW101–SW601 | Same ADBMS6822, SM91801AL-E, 760390014 and EG1218 models as the Nano adapter | See above |
+| J2 (second model) | `Teensy41-mounted.wrl`: Teensy 4.1 resting on 8.5 mm sockets, with micro-USB, processor, flash, microSD socket and header pins | PJRC Teensy 4.1 dimensions and pinout card |
+| J4, J5 | `Pogo_YTC1P-8535.wrl`: 2 mm barrel, 12 mm free length | YIYUAN YTC1P-8535-01 listing |
+| J1 | `USB_C_HRO_TYPE-C-31-M-12.wrl`: receptacle shell, opening and leads | HRO TYPE-C-31-M-12 drawing; KiCad 10 has no model for this footprint |
+
+Regenerate all models with [make_visual_models.py](../tools/make_visual_models.py).

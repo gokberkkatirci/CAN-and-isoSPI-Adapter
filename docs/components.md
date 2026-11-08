@@ -42,3 +42,36 @@ Stock one is insufficient for even one two-port assembly. Before ordering, obtai
 - Indicator resistors and any transistor needed to respect GPIO drive limits.
 
 Use 1206 passive footprints where requested, then specify actual capacitance under DC bias and temperature, resistor power/voltage limits, tolerance and package. No reference designators or final quantities are invented before schematic capture.
+
+## Teensy 4.1 adapter (R0A)
+
+JLCPCB stock observed through its parts-library search on **2026-11-08**. Quantities are per board. All passives are 1206.
+
+| Function | Manufacturer / MPN | Qty | JLCPCB code | Observed stock |
+|---|---|---:|---|---:|
+| Controller (bought separately) | PJRC Teensy 4.1 with pins | 1 | — | — |
+| Teensy sockets, 1 × 24, 8.5 mm | Hong Cheng HC-PM254-8.5H-1x24PZ | 2 | C41376163 | 19,453 |
+| USB D+/D− pogo pins, 11 mm working height | YIYUAN YTC1P-8535-01 | 2 | C5221289 | 1,221 |
+| USB-C receptacle | HRO TYPE-C-31-M-12 | 1 | C165948 | 317,944 |
+| USB ESD | ST USBLC6-2SC6 | 1 | C7519 | 40,867 |
+| VBUS fuse, 2 A hold | Littelfuse 1206L200PR | 1 | C151163 | 4,787 |
+| VBUS TVS | Littelfuse SMAJ5.0A | 1 | C83329 | 38,636 |
+| Schottky (Teensy VIN, rectifiers) | B5819W SL | 13 | C8598 | 854,425 |
+| Isolated CAN transceiver | TI ISO1042DWR | 6 | C1848126 | 128 |
+| CAN supply switch | TI TPS2553DBVR | 6 | C55266 | 57,740 |
+| Push-pull driver | TI SN6505BDBVR | 6 | C74518 | 1,288 |
+| Isolation transformer 1:1.3 | Würth 760390014 | 6 | C2802211 | 214 |
+| Isolated 5 V LDO | TI TLV76750DGNR | 6 | C3752807 | 1,033 |
+| CAN TVS | Nexperia PESD2CANFD24V-TR | 6 | C552486 | 18,015 |
+| 120 Ω switch | E-Switch EG1218 | 6 | C273394 | 1,409 |
+| DSUB-9 female, right angle | Connfly DS1037-09FNAKT74-0CC | 6 | C75749 | 10,896 |
+| CAN FD controller | Microchip MCP2518FDT-E/SL | 3 | C626758 | 17,875 |
+| 40 MHz crystal, 15 pF | YXC X322540MPB4SI | 3 | C9010 | 65,527 |
+| Dual isoSPI bridge | ADI ADBMS6822WCCSZ-RL | 3 | C19190031 | 5,136 |
+| isoSPI transformer | Bourns SM91801AL-E | 6 | C26423704 | **1** |
+| isoSPI terminal | Phoenix Contact 1715721 | 6 | C480516 | 2,496 |
+| LEDs | KENTO KT-1206G / KT-1206R | 8 / 1 | C14641 / C49018 | 15,717 / 33,207 |
+
+**SM91801AL-E is the blocking item**: six are needed per board. JLCPCB offers pre-order for it. The well-stocked Bourns SM91502AL and Pulse HM2101NL / HM2103NL are specified with *functional* insulation, so they do not replace the basic-insulation part without a new insulation decision.
+
+The complete list with values and designators is in the [engineering BOM](../manufacturing/prototype/T41-R0A/bom-engineering.csv).

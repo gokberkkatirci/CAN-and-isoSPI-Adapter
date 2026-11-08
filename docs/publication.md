@@ -1,5 +1,7 @@
-# Public repository handoff
+# Publication notes
 
-The repository contains editable KiCad source, original visual models, an Arduino sketch and reproducible build instructions, and clearly labeled prototype manufacturing exports. Source references and model provenance are recorded in [third-party materials](../THIRD_PARTY.md).
+The repository contains editable KiCad source for both adapters, the generator script for the Teensy 4.1 board, original visual models, two Arduino-style sketches with build instructions, and clearly labeled prototype manufacturing exports. Source references and model provenance are recorded in [third-party materials](../THIRD_PARTY.md).
 
-The release review covers tracked files and commit history for credentials, private workspace paths, local KiCad settings, and downloaded supplier CAD. Public release makes repository content, commit history and GitHub Actions logs visible. The owner can review the repository's visibility under **Settings → Danger Zone** and choose a reuse license separately. [GitHub visibility instructions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility)
+Before each public push, check tracked files and history for credentials, local workspace paths, local KiCad settings (`*.kicad_prl` is ignored) and downloaded supplier CAD (`hardware/kicad/models/vendor/` is ignored). Generated routing intermediates under `hardware/teensy41/build/` and compiled firmware are ignored as well.
+
+No reuse license has been chosen yet. Until one is added, the default copyright rules apply. Typical choices are CERN-OHL-P or CERN-OHL-S for hardware and MIT or Apache-2.0 for firmware.

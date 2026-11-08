@@ -1,0 +1,5 @@
+#VRML V2.0 utf8
+# YIYUAN YTC1P-8535-01 pogo pin, 2 mm barrel, 12 mm free length.
+Transform { translation 0.000000 0.000000 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.748031 0.748031 0.039370 } } ] }
+Transform { translation 0.000000 0.000000 1.574803 children [ Shape { appearance Appearance { material Material { diffuseColor 0.86 0.62 0.23 } } geometry Box { size 0.787402 0.787402 3.070866 } } ] }
+Transform { translation 0.000000 0.000000 3.779528 children [ Shape { appearance Appearance { material Material { diffuseColor 0.86 0.62 0.23 } } geometry Box { size 0.393701 0.393701 1.338583 } } ] }

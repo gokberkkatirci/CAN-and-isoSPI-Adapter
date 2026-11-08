@@ -1,0 +1,21 @@
+#VRML V2.0 utf8
+# HRO TYPE-C-31-M-12 USB-C receptacle envelope.
+Transform { translation 0.000000 -0.137795 0.641732 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 3.519685 2.893701 1.283465 } } ] }
+Transform { translation 0.000000 -1.574803 0.641732 children [ Shape { appearance Appearance { material Material { diffuseColor 0.085 0.09 0.1 } } geometry Box { size 2.716535 0.039370 0.866142 } } ] }
+Transform { translation 0.000000 -1.181102 0.641732 children [ Shape { appearance Appearance { material Material { diffuseColor 0.085 0.09 0.1 } } geometry Box { size 2.204724 0.787402 0.236220 } } ] }
+Transform { translation -1.279528 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -0.964567 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -0.688976 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -0.492126 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -0.295276 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -0.098425 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 0.098425 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 0.295276 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 0.492126 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 0.688976 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 0.964567 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation 1.279528 1.574803 0.019685 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.098425 0.393701 0.039370 } } ] }
+Transform { translation -1.700787 1.232283 0.314961 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.629921 0.629921 } } ] }
+Transform { translation -1.700787 -0.413386 0.314961 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.472441 0.629921 } } ] }
+Transform { translation 1.700787 1.232283 0.314961 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.629921 0.629921 } } ] }
+Transform { translation 1.700787 -0.413386 0.314961 children [ Shape { appearance Appearance { material Material { diffuseColor 0.72 0.75 0.77 } } geometry Box { size 0.236220 0.472441 0.629921 } } ] }

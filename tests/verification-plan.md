@@ -1,6 +1,8 @@
 # Verification and acceptance plan
 
-R0B schematic ERC, PCB DRC and schematic parity passed in KiCad 10.0.6. The Nano R4 sketch compiled with Arduino Renesas core 1.6.0. Hardware bring-up remains pending. See [R0B notes](../docs/r0b.md).
+Nano R4 adapter R0C and Teensy 4.1 adapter R0A pass schematic ERC, PCB DRC and schematic parity in KiCad 10.0.6 ([R0C reports](R0C/), [T41-R0A reports](T41-R0A/)). The Nano R4 sketch compiled with Arduino Renesas core 1.6.0; the Teensy sketch is not yet compiled. Hardware bring-up remains pending for both boards.
+
+The steps below apply to both boards. For the Teensy adapter, repeat the CAN and isoSPI checks on every port, and also confirm USB enumeration through the pogo pins, the CC-based power budget, and that each CAN port's supply switches on and off independently.
 
 ## Before CAD release
 

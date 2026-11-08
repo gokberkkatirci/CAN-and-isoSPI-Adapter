@@ -97,6 +97,48 @@ def nano():
     write('Nano-R4-mounted','Arduino Nano R4 mechanical envelope with representative top components.',objects)
 
 
+def teensy41():
+    # Model origin is pin 1 (GND) of the GND/0..32 socket row; pins run along -Y,
+    # the second row is at +15.24 mm X. The Teensy rests on its pin-header
+    # spacers on top of 8.5 mm sockets, so the module underside is 11.0 mm up.
+    PJRC = (.02, .36, .16)
+    z0 = 11.0
+    objects = [box(7.62, -29.21, z0+.8, 17.78, 60.96, 1.6, PJRC),
+               box(7.62, 1.55, z0+2.9, 7.5, 5.6, 2.6, TIN),            # micro-USB
+               box(7.62, -27.0, z0+2.2, 10.0, 10.0, 1.2, BLACK),      # i.MX RT1062
+               box(7.62, -13.5, z0+2.0, 5.0, 6.0, .9, BLACK),         # flash
+               box(7.62, -53.3, z0+2.4, 11.5, 12.0, 1.6, TIN),        # microSD
+               box(11.6, -37.5, z0+2.0, 3.0, 3.0, .9, BLACK),         # Ethernet PHY
+               box(3.6, -6.0, z0+1.9, 2.0, 1.2, .7, FERRITE),
+               box(2.9, -36.5, z0+2.0, 3.0, 2.5, .8, BLACK),
+               box(4.2, -20.0, z0+2.1, 2.5, 3.2, 1.0, WHITE)]          # program button
+    for x in (0, 15.24):
+        objects.append(box(x, -29.21, 9.75, 2.54, 60.96, 2.5, BLACK))   # header spacer
+        for i in range(24):
+            objects += [box(x, -2.54*i, 9.4, .64, .64, 6.0, GOLD),
+                        box(x, -2.54*i, z0+1.65, 1.5, 1.5, .1, TIN)]
+    write('Teensy41-mounted', 'Teensy 4.1 envelope with representative top components, on 8.5 mm sockets.', objects)
+
+
+def pogo():
+    objects = [box(0, 0, .05, 1.9, 1.9, .1, TIN),
+               box(0, 0, 4.0, 2.0, 2.0, 7.8, GOLD),
+               box(0, 0, 9.6, 1.0, 1.0, 3.4, GOLD)]
+    write('Pogo_YTC1P-8535', 'YIYUAN YTC1P-8535-01 pogo pin, 2 mm barrel, 12 mm free length.', objects)
+
+
+def usbc():
+    # HRO TYPE-C-31-M-12 envelope on the KiCad footprint origin; the opening faces -Y in model space.
+    objects = [box(0, -0.35, 1.63, 8.94, 7.35, 3.26, TIN),
+               box(0, -4.0, 1.63, 6.9, .1, 2.2, BLACK),
+               box(0, -3.0, 1.63, 5.6, 2.0, .6, BLACK)]
+    for x in (-3.25, -2.45, -1.75, -1.25, -.75, -.25, .25, .75, 1.25, 1.75, 2.45, 3.25):
+        objects.append(box(x, 4.0, .05, .25, 1.0, .1, TIN))
+    for x in (-4.32, 4.32):
+        objects += [box(x, 3.13, .8, .6, 1.6, 1.6, TIN), box(x, -1.05, .8, .6, 1.2, 1.6, TIN)]
+    write('USB_C_HRO_TYPE-C-31-M-12', 'HRO TYPE-C-31-M-12 USB-C receptacle envelope.', objects)
+
+
 if __name__ == '__main__':
     DEST.mkdir(exist_ok=True)
     qfn()
@@ -104,3 +146,6 @@ if __name__ == '__main__':
     wurth()
     switch()
     nano()
+    teensy41()
+    pogo()
+    usbc()
