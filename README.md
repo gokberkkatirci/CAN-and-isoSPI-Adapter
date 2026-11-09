@@ -17,7 +17,7 @@ Two open-hardware USB adapters for battery-management bench work. Both connect i
 
 ## Nano R4 adapter (R0C)
 
-![KiCad 3D render of the Nano R4 adapter](docs/images/board-r0c.png)
+![Top view of the Nano R4 adapter](docs/images/board-r0c-top.png)
 
 | Interface | Hardware |
 |---|---|
@@ -45,9 +45,7 @@ R0C differs from R0B in one connection: the SN6505B CLK pin is now tied to groun
 
 ## Teensy 4.1 adapter (R0A)
 
-![KiCad 3D render of the Teensy 4.1 adapter](docs/images/board-t41-r0a.png)
-
-[Top view](docs/images/board-t41-r0a-top.png)
+![Top view of the Teensy 4.1 adapter](docs/images/board-t41-r0a-top.png)
 
 Six isolated CAN ports on DSUB-9 connectors along one long edge and six isoSPI terminals along the opposite long edge. **Channel N** is one column: CAN N sits directly opposite isoSPI N, numbered 1–6 from left to right, and the same number is used on the silkscreen, in the schematic, in reference designators and in the firmware. Each adapter reports a unique ID and an optional stored label, so several can share one host. A single USB-C connector supplies power and USB data; the data lines reach the Teensy through two pogo pins that touch its USB device pads.
 

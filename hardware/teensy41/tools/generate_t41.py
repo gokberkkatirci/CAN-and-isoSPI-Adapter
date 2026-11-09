@@ -692,10 +692,12 @@ def silkscreen(board):
     ]
     for x, y, t in tp_labels:
         add_text(board, t, x, y, 0.8)
-    add_text(board, D.TITLE, 160.0, 50.0, 1.6, bold=True)
-    add_text(board, "%s %s  %s" % (D.PROJECT, D.REV, D.DATE), 160.0, 53.5, 1.0)
-    add_text(board, "Prototype - insulation not certified", 160.0, 56.5, 0.9)
-    add_text(board, "Channel N = CAN N (bottom) + isoSPI N (top), numbered left to right", 160.0, 59.5, 0.9)
+    # Title block sits in the open area between the right test-point group
+    # (rightmost label RX1 at x=136) and the right mounting hole at x=211.5.
+    add_text(board, D.TITLE, 176.0, 50.0, 1.6, bold=True)
+    add_text(board, "%s %s  %s" % (D.PROJECT, D.REV, D.DATE), 176.0, 53.5, 1.0)
+    add_text(board, "Prototype - insulation not certified", 176.0, 56.5, 0.9)
+    add_text(board, "Channel N = CAN N (bottom) + isoSPI N (top), numbered left to right", 176.0, 59.5, 0.9)
 
 
 # =============================================================================

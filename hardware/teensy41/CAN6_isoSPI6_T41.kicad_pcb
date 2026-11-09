@@ -62312,7 +62312,7 @@
 		)
 	)
 	(gr_text "Prototype - insulation not certified"
-		(at 190 86.5 0)
+		(at 206 86.5 0)
 		(layer "F.SilkS")
 		(uuid "78ffe3d3-9780-4e85-9645-d845fc3e4e71")
 		(effects
@@ -62323,7 +62323,7 @@
 		)
 	)
 	(gr_text "Channel N = CAN N (bottom) + isoSPI N (top), numbered left to right"
-		(at 190 89.5 0)
+		(at 206 89.5 0)
 		(layer "F.SilkS")
 		(uuid "cff192db-9acf-4d47-8d4e-598b736924e6")
 		(effects
@@ -62345,7 +62345,7 @@
 		)
 	)
 	(gr_text "CAN6_isoSPI6_T41 R0A  2026-11-08"
-		(at 190 83.5 0)
+		(at 206 83.5 0)
 		(layer "F.SilkS")
 		(uuid "17684d59-4351-4430-9c25-5c86c5ab42a3")
 		(effects
@@ -62620,7 +62620,7 @@
 		)
 	)
 	(gr_text "Six CAN and six isoSPI adapter - Teensy 4.1"
-		(at 190 80 0)
+		(at 206 80 0)
 		(layer "F.SilkS")
 		(uuid "63fde763-6467-47c9-80b7-8b8df941db58")
 		(effects
