@@ -325,7 +325,7 @@ def write_schematic(used):
                       % (q(net), fmt(sx), fmt(sy + 3.81), uid("fl", net)))
 
     notes = [
-        "Teensy 4.1 sits in J2/J3 (8.5 mm sockets). Cut the VIN-VUSB pads on the Teensy so USB power enters only through J1/F1/D2.",
+        "Teensy 4.1 sits in J2/J3 (8.5 mm sockets). Keep the VIN-VUSB pads joined: VUSB powers the USB PHY. Never plug the Teensy micro-USB.",
         "J4/J5 pogo pins reach the Teensy USB device D-/D+ pads under the module; the carrier USB-C carries data and power.",
         "CAN1-3 use Teensy FlexCAN1-3; CAN4-6 use MCP2518FD on SPI1. Each CAN port has its own isolated supply and ground.",
         "DSUB-9 female, CiA 303-1 / PEAK pinout: 2 CAN_L, 7 CAN_H, 3 and 6 CAN_GND, 5 and shell to shield RC.",
@@ -678,14 +678,14 @@ def silkscreen(board):
     for a, b in (((x1, y1), (x2, y1)), ((x2, y1), (x2, y2)), ((x2, y2), (x1, y2)), ((x1, y2), (x1, y1))):
         add_line(board, pcbnew.F_Fab, a, b, 0.1)
     add_text(board, "< USB END   TEENSY 4.1", 44.0, D.TEENSY_YC - 1.0, 1.0)
-    add_text(board, "CUT VIN-VUSB ON TEENSY", 48.0, D.TEENSY_YC - 3.0, 0.8)
+    add_text(board, "KEEP VIN-VUSB JOINED", 48.0, D.TEENSY_YC - 3.0, 0.8)
     add_text(board, "USB-C", 6.0, D.TEENSY_YC - 6.8, 0.9)
     add_text(board, "5V", 7.0, 76.0, 0.8)
     add_text(board, "OK", 89.0, 50.0, 0.8)
     add_text(board, "ERR", 89.5, 54.0, 0.8)
     tp_labels = [
-        (92.0, 46.0, "5V"), (96.0, 46.0, "GND"), (100.0, 46.0, "3V3"), (104.0, 46.0, "VBUS"),
-        (92.0, 50.0, "FLT"), (96.0, 50.0, "D32"), (100.0, 50.0, "D+"), (104.0, 50.0, "D-"),
+        (92.0, 46.0, "5V"), (96.0, 46.0, "GND"), (100.0, 46.0, "3V3"),
+        (92.0, 50.0, "FLT"), (96.0, 50.0, "D32"),
         (120.0, 46.0, "MOSI"), (124.0, 46.0, "MISO"), (128.0, 46.0, "SCK"),
         (132.0, 46.0, "TX1"), (136.0, 46.0, "RX1"),
         (120.0, 50.0, "MOSI1"), (124.0, 50.0, "MISO1"), (128.0, 50.0, "SCK1"),

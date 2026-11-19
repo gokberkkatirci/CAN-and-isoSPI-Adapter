@@ -8,8 +8,8 @@
 	)
 	(paper "A4")
 	(title_block
-		(date "2026-11-08")
-		(rev "R0C")
+		(date "2026-11-19")
+		(rev "R0D")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -11252,6 +11252,17 @@
 		)
 		(layer "Edge.Cuts")
 		(uuid "82d6c3ea-92c8-4547-a164-a6c1c01e54b2")
+	)
+	(gr_text "H3: NYLON M3 ONLY"
+		(at 123 112 0)
+		(layer "F.SilkS")
+		(uuid "a31f3507-618c-4441-b6d2-a87d04ae0c76")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
 	)
 	(gr_text "CAN GND"
 		(at 63.9 86.9 0)

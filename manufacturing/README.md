@@ -1,6 +1,6 @@
 # Manufacturing workflow
 
-Prototype exports: [Nano R4 adapter R0C](prototype/R0C/README.md) and [Teensy 4.1 adapter R0A](prototype/T41-R0A/README.md). Each contains draft BOM, CPL, Gerber and drill data from the checked native source. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
+Prototype exports: [Nano R4 adapter R0D](prototype/R0D/README.md) and [Teensy 4.1 adapter R0B](prototype/T41-R0B/README.md). Each contains draft BOM, CPL, Gerber and drill data from the checked native source. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
 
 ## Release sequence
 

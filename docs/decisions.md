@@ -1,6 +1,6 @@
 # Decisions and unresolved release conditions
 
-Updated 2026-11-08. The planning decisions below precede the [R0A prototype implementation](r0a.md); [R0C](r0c.md) is the current Nano R4 revision. The Teensy 4.1 adapter decisions are listed at the end.
+Updated 2026-11-19. The planning decisions below precede the [R0A prototype implementation](r0a.md); [R0D](r0d.md) is the current Nano R4 revision and [T41-R0B](t41-r0b.md) the current Teensy revision. The Teensy 4.1 adapter decisions are listed at the end.
 
 ## Recorded decisions
 
@@ -37,7 +37,7 @@ Complete DRC, layer-by-layer barrier inspection, enclosure/metal clearance revie
 ## Teensy 4.1 adapter decisions (R0A, 2026-11-08)
 
 - Teensy 4.1 controller, six CAN and six isoSPI ports, 1206 passives, six-layer board, JLCPCB assembly. A four-layer layout left the three ADBMS6822 QFN escapes unroutable; six layers give two ground planes and four routing layers.
-- One carrier USB-C for power and data. USB data reaches the Teensy's underside USB device pads through two pogo pins; the Teensy VIN–VUSB pads are cut so power enters only through the carrier fuse and diode.
+- One carrier USB-C for power and data. USB data reaches the Teensy's underside USB device pads through two pogo pins. Power enters only through the carrier fuse and diode. R0A cut the Teensy VIN–VUSB pads; R0B keeps them joined, because VUSB powers the Teensy's USB PHY, and forbids using the Teensy micro-USB on the carrier.
 - CAN1–3 on FlexCAN, CAN4–6 on MCP2518FD. Every CAN port has its own isolated supply, ground, TVS, 120 Ω switch and DSUB-9 female connector wired like PEAK PCAN adapters (CiA 303-1: 2 CAN_L, 7 CAN_H, 3/6 GND).
 - Each CAN supply has its own current-limited switch so a fault or an unused port can be switched off. Firmware reads the USB-C CC level and limits a default 500 mA source to two open CAN ports.
 - isoSPI uses the same SM91801AL-E transformers and 8 mm copper rule as the Nano adapter.
@@ -45,7 +45,20 @@ Complete DRC, layer-by-layer barrier inspection, enclosure/metal clearance revie
 | Open item | Disposition |
 |---|---|
 | Teensy USB pad position and D+/D− order | Taken from the PJRC pinout card and an independent footprint; measure a real Teensy 4.1 before ordering |
-| Pogo-pin preload and Teensy socket retention | Check with physical parts |
+| Pogo-pin preload, reflow tilt and Teensy socket retention | Check with physical parts; hand-fit J4/J5 if they tilt in reflow |
 | SM91801AL-E supply, six per board | JLCPCB stock one; pre-order or consign |
 | Six-port worst-case current | About 110 mA per transmitting port; confirm on the bench |
 | DSUB-9 orientation | Vertical (mating face up) Connfly DS1034; confirm fit with a part and the enclosure lid |
+
+## Design review 2026-11-19
+
+Fixed in Teensy [T41-R0B](t41-r0b.md): VUSB supply (pads kept joined), USB D+/D− stubs, VBUS track width. Fixed in Nano [R0D](r0d.md): nylon hardware marked at H3. The ADBMS6822 straps, supply ranges and INTR/WAKE levels were checked against the ADBMS6821/ADBMS6822 datasheet (Rev. B) and are correct on both boards.
+
+| Open item | Disposition |
+|---|---|
+| Basic vs reinforced insulation | SM91801AL-E is basic insulation and the USB side is touchable through the host PC. A product for 1,000 V packs needs reinforced insulation (about 10 mm creepage on the PCB instead of 8 mm) or a second barrier such as a USB isolator. System decision required |
+| ADBMS6822 decoupling | Capacitors sit 4–7 mm (Nano) and 6–11 mm (Teensy) from the VDD, VP and VDDS pins; the datasheet asks for at least 1 µF as close as possible to VDD. Add a 100 nF capacitor at each pin in the next layout revision |
+| isoSPI termination and filtering | Plain 100 Ω termination. ADI's evaluation board uses a split termination with a capacitor and RC filters on IP/IM; compare EMC margin on the bench |
+| Teensy hot-plug capacitance | About 13–17 µF on +5 V, above the USB 10 µF limit; measure inrush |
+| Teensy pogo pins | 12 mm pins on a 2 mm SMD pad may tilt in reflow; inspect or fit by hand |
+| Teensy net classes | Classes defined in `design.py` are not written to the KiCad project, so a fresh autoroute narrows VBUS again |

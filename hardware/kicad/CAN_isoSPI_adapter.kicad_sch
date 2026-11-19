@@ -1,5 +1,5 @@
 (kicad_sch (version 20250114) (generator eeschema) (uuid 5ec22767-b2c7-55a9-9f12-598942f9c660) (paper "A2")
-(title_block (title "CAN and isoSPI Adapter") (rev "R0C") (date "2026-11-07") (comment 1 "Prototype / bench validation pending"))
+(title_block (title "CAN and isoSPI Adapter") (rev "R0D") (date "2026-11-19") (comment 1 "Prototype / bench validation pending"))
 (lib_symbols (symbol "Carrier:J1" (pin_names (offset 0.6)) (in_bom yes) (on_board yes)
               (property "Reference" "J" (at 0 0 0) (effects (font (size 1.27 1.27)) ))
               (property "Value" "J1" (at 0 0 0) (effects (font (size 1.27 1.27)) ))

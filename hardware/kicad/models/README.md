@@ -1,6 +1,6 @@
 # 3D models
 
-Nano R4 adapter: all **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0B and R0C. The mounting holes and six exposed test pads are represented by PCB geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
+Nano R4 adapter: all **41 fitted carrier footprints** have a resolvable model in the KiCad 10 installation used to check R0B to R0D. The mounting holes and six exposed test pads are represented by PCB geometry. The Nano module is drawn above J1/J2 using an additional model on J1.
 
 | References | Model in the portable project | Exact CAD source or basis |
 |---|---|---|

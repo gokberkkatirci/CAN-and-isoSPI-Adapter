@@ -43,7 +43,7 @@ Stock one is insufficient for even one two-port assembly. Before ordering, obtai
 
 Use 1206 passive footprints where requested, then specify actual capacitance under DC bias and temperature, resistor power/voltage limits, tolerance and package. No reference designators or final quantities are invented before schematic capture.
 
-## Teensy 4.1 adapter (R0A)
+## Teensy 4.1 adapter (R0A, R0B)
 
 JLCPCB stock observed through its parts-library search on **2026-11-08**. Quantities are per board. All passives are 1206.
 
@@ -74,4 +74,4 @@ JLCPCB stock observed through its parts-library search on **2026-11-08**. Quanti
 
 **SM91801AL-E is the blocking item**: six are needed per board. JLCPCB offers pre-order for it. The well-stocked Bourns SM91502AL and Pulse HM2101NL / HM2103NL are specified with *functional* insulation, so they do not replace the basic-insulation part without a new insulation decision.
 
-The complete list with values and designators is in the [engineering BOM](../manufacturing/prototype/T41-R0A/bom-engineering.csv).
+The complete list with values and designators is in the [engineering BOM](../manufacturing/prototype/T41-R0B/bom-engineering.csv).

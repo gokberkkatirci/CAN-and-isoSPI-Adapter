@@ -11,8 +11,8 @@ counter-clockwise in degrees.
 
 PROJECT = "CAN6_isoSPI6_T41"
 TITLE = "Six CAN and six isoSPI adapter - Teensy 4.1"
-REV = "R0A"
-DATE = "2026-11-08"
+REV = "R0B"
+DATE = "2026-11-19"
 
 BOARD_W = 216.0
 BOARD_H = 120.0
@@ -183,8 +183,9 @@ add("J1", "USB_C", "USBC", {"A4": "VBUS", "A9": "VBUS", "B4": "VBUS", "B9": "VBU
                             "A8": NC, "B8": NC, "A6": "USB_DP", "B6": "USB_DP", "A7": "USB_DM", "B7": "USB_DM",
                             "A1": "GND", "A12": "GND", "B1": "GND", "B12": "GND", "SH": "USB_SHIELD"},
     (4.2, TEENSY_YC, 270), G)
+# R0B: U1 sits on the D+/D- line just past the pogo pins (stubs < 5 mm), flow-through pin 4->3 and 6->1.
 add("U1", "USBLC6", "USBESD", {"1": "USB_DP", "6": "USB_DP", "3": "USB_DM", "4": "USB_DM", "5": "VBUS", "2": "GND"},
-    (9.0, 43.0, 0), G)
+    (18.5, 53.0, 180), G)
 R("R1", "R5k1", "USB_CC1", "GND", (18.5, 49.0, 0), G)
 R("R2", "R5k1", "USB_CC2", "GND", (18.5, 56.0, 0), G)
 R("R3", "R1k", "USB_CC1", "CC1_SENSE", (23.5, 49.0, 0), G)
@@ -210,12 +211,12 @@ TEST_POINTS = [
     ("+5V",       92.0, 48.0),
     ("GND",       96.0, 48.0),
     ("+3V3",     100.0, 48.0),
-    ("VBUS",     104.0, 48.0),
+    None,                       # TP4 VBUS removed in R0B: its 100 mm route split the +5V plane
     # row 2 — fault, spare, USB data
     ("CAN_PWR_FAULT", 92.0, 52.0),
     ("T_SPARE32",     96.0, 52.0),
-    ("USB_DP",       100.0, 52.0),
-    ("USB_DM",       104.0, 52.0),
+    None,                       # TP7/TP8 USB D+/D- removed in R0B: 90 mm stubs on a 480 Mbit/s pair
+    None,
     # row 3 — isoSPI SPI bus + representative CAN TX/RX
     ("ISO_MOSI", 120.0, 48.0),
     ("ISO_MISO", 124.0, 48.0),
@@ -227,7 +228,10 @@ TEST_POINTS = [
     ("MCP_MISO", 124.0, 52.0),
     ("MCP_SCK",  128.0, 52.0),
 ]
-for i, (net, x, y) in enumerate(TEST_POINTS):
+for i, tp in enumerate(TEST_POINTS):
+    if tp is None:          # keep the remaining TP numbers unchanged
+        continue
+    net, x, y = tp
     add("TP%d" % (i + 1), "testpoint", "TP", {"1": net}, (x, y, 0), G)
 for i, (x, y) in enumerate([(4.5, 4.5), (211.5, 4.5), (4.5, 115.5), (211.5, 115.5), (108.0, 4.5), (108.0, 56.0)]):
     add("H%d" % (i + 1), "hole", "HOLE", {}, (x, y, 0), G)

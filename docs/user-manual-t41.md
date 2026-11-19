@@ -1,6 +1,6 @@
 # Teensy 4.1 adapter — User manual
 
-This manual covers assembly, firmware installation, and everyday use of the six-CAN / six-isoSPI Teensy 4.1 adapter board (CAN6_isoSPI6_T41 R0A).
+This manual covers assembly, firmware installation, and everyday use of the six-CAN / six-isoSPI Teensy 4.1 adapter board (CAN6_isoSPI6_T41 R0B).
 
 ## 1  Board overview
 
@@ -20,7 +20,9 @@ If ordering from JLCPCB, SMT parts are placed by the assembly service. The throu
 
 ### 2.2  Teensy preparation
 
-**Cut the VIN–VUSB pads** on the Teensy 4.1 underside before inserting it. The carrier board feeds VIN through the PTC fuse and Schottky diode. Leaving the pads joined will back-feed the carrier's VBUS to the Teensy's micro-USB VBUS pin. See the [Teensy 4.1 documentation](https://www.pjrc.com/store/teensy41.html#power) for the pad location.
+**Keep the VIN–VUSB pads joined** on the Teensy 4.1 underside; a new Teensy ships that way. The carrier feeds VIN through the PTC fuse and Schottky diode, and the joined pads pass that supply on to VUSB, which the Teensy's USB interface needs. If the pads were cut earlier (R0A instructions), bridge them again with solder. See the [Teensy 4.1 documentation](https://www.pjrc.com/store/teensy41.html#power) for the pad location.
+
+**Never plug the Teensy's own micro-USB while it sits on the carrier.** The carrier would then drive 5 V back into that host port through VUSB.
 
 ### 2.3  Inserting the Teensy
 
@@ -272,18 +274,15 @@ CAN TX 4 S <id> <data>
 
 ## 8  Test points
 
-The board has 16 test points (1.5 mm pads) accessible with a scope or multimeter:
+The board has 13 test points (1.5 mm pads) accessible with a scope or multimeter:
 
 | Label | Net | Location |
 |---|---|---|
 | 5V | +5V rail | Left group, row 1 |
 | GND | Ground | Left group, row 1 |
 | 3V3 | +3.3V rail | Left group, row 1 |
-| VBUS | USB VBUS | Left group, row 1 |
 | FLT | CAN power fault (active low) | Left group, row 2 |
 | D32 | Teensy pin 32 (spare) | Left group, row 2 |
-| D+ | USB D+ | Left group, row 2 |
-| D- | USB D- | Left group, row 2 |
 | MOSI | isoSPI SPI MOSI | Right group, row 1 |
 | MISO | isoSPI SPI MISO | Right group, row 1 |
 | SCK | isoSPI SPI SCK | Right group, row 1 |
@@ -306,7 +305,7 @@ The board has 16 test points (1.5 mm pads) accessible with a scope or multimeter
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| No USB enumeration | VIN–VUSB pads not cut; pogo pin misalignment | Cut the Teensy pads; check J4/J5 alignment |
+| No USB enumeration | VIN–VUSB pads cut; pogo pin misalignment or tilt | Bridge the Teensy VIN–VUSB pads; check J4/J5 alignment and that both pins stand upright |
 | `ERR usb-power-budget` | Default USB source, >2 ports open | Use a 1.5 A or 3 A USB-C source, or add `FORCE` |
 | `ERR can-power-fault` | Short or overcurrent on the isolated supply | Check CAN wiring; the TPS2553 current limit is ~200 mA |
 | `ERR can-init 0x…` | MCP2518FD failed to start | Check SPI1 connections; the error code is from the ACAN2517FD library |

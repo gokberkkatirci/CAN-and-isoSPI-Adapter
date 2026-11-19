@@ -1,4 +1,4 @@
-// USB bridge for the six-CAN / six-isoSPI Teensy 4.1 carrier (CAN6_isoSPI6_T41 R0A).
+// USB bridge for the six-CAN / six-isoSPI Teensy 4.1 carrier (CAN6_isoSPI6_T41 R0A and R0B).
 //
 // CAN1-CAN3 use the i.MX RT1062 FlexCAN controllers (FlexCAN_T4, bundled with
 // Teensyduino). CAN4-CAN6 use MCP2518FD controllers on SPI1 (ACAN2517FD

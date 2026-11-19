@@ -7,4 +7,4 @@ R0C keeps the R0B placement, outline and routing. Two changes were made after a 
 
 The review also rechecked the isolated CAN supply against the SN6505B datasheet: Würth 760390014 is a 1:1.3 transformer intended for 5 V → 5 V with an LDO, so the TLV76750 keeps regulation headroom at the low end of USB voltage. Copper between USB ground and isolated CAN ground is at least 4 mm on every layer.
 
-KiCad 10.0.6 reports zero ERC findings and zero DRC, unconnected-item and schematic-parity findings ([reports](../tests/R0C/)). The [test-point map](r0b.md#probe-points) is unchanged.
+KiCad 10.0.6 reports zero ERC findings and zero DRC, unconnected-item and schematic-parity findings ([reports](../tests/R0D/); the R0D folder replaces the R0C one). The [test-point map](r0b.md#probe-points) is unchanged.
