@@ -4,7 +4,7 @@ R0D keeps the R0C schematic, placement, outline and copper. A design review on 2
 
 - **Mounting hole H3 takes nylon hardware only.** H3 has no copper, so DRC does not check it, but the hole edge is 6.7 mm from the AUX terminal J5. A metal screw head would reduce that to about 5.5 mm, below the 8 mm isoSPI barrier. The silkscreen next to H3 now reads *H3: NYLON M3 ONLY*. Use a nylon screw, nut and standoff there, or keep metal hardware at least 8 mm from J5.
 
-The Gerber package differs from R0C only in the top silkscreen. The BOM and CPL are unchanged. The [top render](images/board-r0c-top.png) still shows R0C.
+The Gerber package differs from R0C only in the top silkscreen. The BOM and CPL are unchanged. The [R0D top render](images/board-r0d-top.png) shows the nylon-only marking next to H3.
 
 ## Checks
 

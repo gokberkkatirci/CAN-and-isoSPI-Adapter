@@ -1,9 +1,10 @@
 # CAN and isoSPI Adapters
 
-Two open-hardware USB adapters for battery-management bench work. Both connect isolated Classical CAN and isoSPI links to a host PC over USB. The isoSPI ports drive ADBMS1818 / ADBMS6832-class battery-monitor chains through ADBMS6822 dual isoSPI bridges.
+Two USB adapters for battery-management bench work. Both connect a host PC to isolated Classical CAN and isoSPI, with socketed controller modules and switchable CAN termination.
 
-| | [Nano R4 adapter](#nano-r4-adapter-r0d) | [Teensy 4.1 adapter](#teensy-41-adapter-r0b) |
-|---|---|---|
+| | [Nano R4 · R0D](#nano-r4-adapter-r0d) | [Teensy 4.1 · T41-R0B](#teensy-41-adapter-t41-r0b) |
+|---|:---:|:---:|
+| Top view | <a href="docs/images/board-r0d-top.png"><img src="docs/images/board-r0d-top.png" alt="Nano R4 R0D top render with one CAN terminal and two isoSPI terminals" width="285"></a> | <a href="docs/images/board-t41-r0b-top.png"><img src="docs/images/board-t41-r0b-top.png" alt="Teensy 4.1 T41-R0B top render with six DSUB-9 CAN connectors and six isoSPI terminals" width="450"></a> |
 | Controller | Arduino Nano R4 (socketed) | Teensy 4.1 (socketed) |
 | USB | Nano's own USB-C | Carrier USB-C for power and data |
 | CAN ports | 1, screw terminal | 6, vertical DSUB-9 female (CiA 303-1 pinout) |
@@ -11,13 +12,11 @@ Two open-hardware USB adapters for battery-management bench work. Both connect i
 | CAN termination | 120 Ω slide switch | 120 Ω slide switch on every port |
 | isoSPI ports | 2 (MAIN, AUX) | 6 |
 | Board | 82 × 64 mm, 4 layers | 216 × 120 mm, 6 layers |
-| Passives | 1206 | 1206 |
+| Prototype files | [Nano Gerbers, BOM and CPL](manufacturing/prototype/R0D/) | [Teensy Gerbers, BOM and CPL](manufacturing/prototype/T41-R0B/) |
 
-> **Bench prototypes.** Both designs pass KiCad 10.0.8 ERC, DRC and schematic-parity checks with the project rules. Hardware bring-up, signal integrity and system insulation qualification have not been done. Open items from the 2026-11-19 design review are listed in [decisions](docs/decisions.md#design-review-2026-11-19).
+> **Prototype status.** Both boards pass their recorded KiCad ERC, DRC and schematic-parity checks. Hardware bring-up and insulation qualification are pending. The 1,000 V DC pack and 3 m isoSPI cable targets remain unqualified. The manufacturing files are for prototype review. See the [bench verification plan](tests/verification-plan.md).
 
 ## Nano R4 adapter (R0D)
-
-![Top view of the Nano R4 adapter](docs/images/board-r0c-top.png)
 
 | Interface | Hardware |
 |---|---|
@@ -43,11 +42,11 @@ R0D has the same circuit and copper as R0C. Mounting hole H3 is close to the AUX
 - [Nano R4 firmware](firmware/README.md#nano-r4-adapter)
 - [R0D fabrication files](manufacturing/prototype/R0D/README.md) and [checks](tests/R0D/)
 
-## Teensy 4.1 adapter (R0B)
-
-![Top view of the Teensy 4.1 adapter](docs/images/board-t41-r0b-top.png)
+## Teensy 4.1 adapter (T41-R0B)
 
 Six isolated CAN ports on DSUB-9 connectors along one long edge and six isoSPI terminals along the opposite long edge. **Channel N** is one column: CAN N sits directly opposite isoSPI N, numbered 1–6 from left to right, and the same number is used on the silkscreen, in the schematic, in reference designators and in the firmware. Each adapter reports a unique ID and an optional stored label, so several can share one host. A single USB-C connector supplies power and USB data; the data lines reach the Teensy through two pogo pins that touch its USB device pads. **Keep the Teensy's VIN–VUSB pads joined** and never plug its own micro-USB.
+
+> **Before powered bring-up:** Resolve the six direct ADBMS6822 INTR connections to the Teensy’s 3.3 V inputs.
 
 R0B fixes the USB path of R0A: the Teensy VUSB pin is powered again, the D+/D− lines lost their 90 mm test-pad stubs, and VBUS runs on a 1 mm outer-layer track. See the [T41-R0B notes](docs/t41-r0b.md).
 
@@ -75,8 +74,8 @@ R0B fixes the USB path of R0A: the Teensy VUSB pin is powered again, the D+/D−
 
 ## Prototype limits
 
-Each isoSPI cable domain keeps an **8 mm copper clearance** to all other copper. The 1 kV DC figure is the transformer working rating. SM91801AL-E provides **basic insulation only**, and the USB side is touchable through the host PC, so neither board is suitable as a product without a second barrier or reinforced insulation. Board creepage, insulation coordination, cable and enclosure clearances still need validation. The CAN isolation is meant for low-voltage CAN networks.
+The PCB rules require **8 mm copper clearance** around each floating isoSPI cable domain. The **1 kV DC** transformer working rating applies to the SM91801AL-E, which provides basic insulation. Protective insulation still needs to be established for the complete system, including PCB creepage, mounting, cables and enclosure. The CAN ports are intended for low-voltage CAN networks.
 
-JLCPCB listed **one** SM91801AL-E (C26423704) on 2026-11-08. The Nano R4 adapter needs two per board and the Teensy adapter needs six. Arrange a pre-order or consigned supply before ordering assembly. Review rotations in the JLCPCB placement preview, socket fit and the remaining open items in [decisions](docs/decisions.md).
+The Nano R4 adapter needs two SM91801AL-E transformers per board. The Teensy adapter needs six. Confirm sourcing, placement rotations, through-hole assembly and socket fit before ordering. See the [design decisions](docs/decisions.md) and [manufacturing workflow](manufacturing/README.md).
 
 No license has been selected yet; see [publication notes](docs/publication.md).
