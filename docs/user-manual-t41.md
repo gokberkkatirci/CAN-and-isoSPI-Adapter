@@ -1,6 +1,6 @@
 # Teensy 4.1 adapter — User manual
 
-This manual covers assembly, firmware installation, and everyday use of the six-CAN / six-isoSPI Teensy 4.1 adapter board (CAN6_isoSPI6_T41 R0B).
+This manual covers assembly, firmware installation, and everyday use of the six-CAN / six-isoSPI Teensy 4.1 adapter board (CAN6_isoSPI6_T41 R0C).
 
 ## 1  Board overview
 

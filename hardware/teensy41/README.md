@@ -1,8 +1,8 @@
-# Teensy 4.1 adapter — six CAN, six isoSPI (R0B)
+# Teensy 4.1 adapter — six CAN, six isoSPI (R0C)
 
-Open [CAN6_isoSPI6_T41.kicad_pro](CAN6_isoSPI6_T41.kicad_pro) in **KiCad 10.0.6**. The schematic, PCB placement, zones, design rules and manufacturing CSVs are generated from [tools/design.py](tools/design.py) by [tools/generate_t41.py](tools/generate_t41.py). Edit `design.py` and regenerate rather than editing the schematic and board separately. The R0B USB rework was applied to the routed R0A board with [tools/rework_r0b.py](tools/rework_r0b.py); see the [T41-R0B notes](../../docs/t41-r0b.md).
+Open [CAN6_isoSPI6_T41.kicad_pro](CAN6_isoSPI6_T41.kicad_pro) in **KiCad 10.0.6**. The schematic, PCB placement, zones, design rules and manufacturing CSVs are generated from [tools/design.py](tools/design.py) by [tools/generate_t41.py](tools/generate_t41.py). Edit `design.py` and regenerate rather than editing the schematic and board separately. The R0B USB rework was applied to the routed R0A board with [tools/rework_r0b.py](tools/rework_r0b.py) ([T41-R0B notes](../../docs/t41-r0b.md)). The R0C part swap for JLCPCB stock was applied to the R0B board with [tools/rework_r0c.py](tools/rework_r0c.py) ([T41-R0C notes](../../docs/t41-r0c.md)).
 
-![KiCad top render](../../docs/images/board-t41-r0b-top.png)
+![KiCad top render](../../docs/images/board-t41-r0c-top.png)
 
 ## Board
 
@@ -67,7 +67,7 @@ Every fitted part has a model. Standard parts use the KiCad 10 library; the ADBM
 
 1. **Keep the VIN–VUSB pads joined** on the Teensy's underside (the factory state). The carrier feeds VIN from +5 V through D2 (Schottky), after F1 (2 A PTC), and the joined pads pass that supply on to VUSB, which powers the Teensy's USB PHY. R0A said to cut the pads; with them cut the Teensy will not enumerate.
 2. Use the carrier USB-C only. J4 and J5 are pogo pins that press on the Teensy's USB device D−/D+ pads, so the Teensy enumerates and is programmed through the carrier connector. **Never plug the Teensy's micro-USB** while it is on the carrier: the carrier would drive 5 V back into that host port through VUSB.
-3. Measure the D−/D+ pad positions on your Teensy against J4/J5 before assembly; see [open items](../../docs/decisions.md#teensy-41-adapter-decisions-r0a-2026-11-08). Check that the pogo pins stand upright after reflow, or fit them by hand as described in the [manufacturing notes](../../manufacturing/prototype/T41-R0B/README.md).
+3. Measure the D−/D+ pad positions on your Teensy against J4/J5 before assembly; see [open items](../../docs/decisions.md#teensy-41-adapter-decisions-r0a-2026-11-08). Check that the pogo pins stand upright after reflow, or fit them by hand as described in the [manufacturing notes](../../manufacturing/prototype/T41-R0C/README.md).
 
 ## CAN port wiring
 
@@ -97,7 +97,7 @@ Logic runs at 3.3 V from the Teensy's regulator. ADBMS6822 VDDS and MSTR use 3.3
 
 ## Power
 
-USB-C VBUS → 1 mm B.Cu track → F1 → SMAJ5.0A → +5 V plane; D2 feeds the Teensy VIN from +5 V. Each CAN port has a TPS2553 switch limited to about 200 mA (R_ILIM = 130 kΩ) feeding an SN6505B push-pull driver, a Würth 760390014 1:1.3 transformer, two B5819W rectifiers and a TLV76750 5 V LDO. The switches stay off until firmware opens a port. Provisional worst case is about 110 mA from 5 V per transmitting CAN port plus about 250 mA for the Teensy, bridges and controllers, so all six ports need a 1.5 A or 3 A USB-C source. The firmware reads the source's CC advertisement and limits a default USB port to two open CAN ports.
+USB-C VBUS → 1 mm B.Cu track → F1 → SMAJ5.0A → +5 V plane; D2 feeds the Teensy VIN from +5 V. Each CAN port has a TPS2553 switch limited to about 200 mA (R_ILIM = 130 kΩ) feeding an SN6505B push-pull driver, a Maxinmicro MXPP6-3K6110 1:1.1 transformer, two B5819W rectifiers and a TPS7A1650-Q1 5 V LDO (100 mA; near dropout at full load, see [T41-R0C notes](../../docs/t41-r0c.md#still-open)). The switches stay off until firmware opens a port. Provisional worst case is about 110 mA from 5 V per transmitting CAN port plus about 250 mA for the Teensy, bridges and controllers, so all six ports need a 1.5 A or 3 A USB-C source. The firmware reads the source's CC advertisement and limits a default USB port to two open CAN ports.
 
 ## Regenerating
 
@@ -107,7 +107,7 @@ export JAVA=/path/to/java FREEROUTING_JAR=/path/to/freerouting.jar
 $PY hardware/teensy41/tools/generate_t41.py pcb      # schematic, project, rules, placement, ground and QFN fan-out
 $PY hardware/teensy41/tools/generate_t41.py route    # Freerouting 2.x through a Specctra round trip
 $PY hardware/teensy41/tools/generate_t41.py patch    # pours, zone fill, close leftovers, trim dangling copper
-$PY hardware/teensy41/tools/generate_t41.py fab manufacturing/prototype/T41-R0B
+$PY hardware/teensy41/tools/generate_t41.py fab manufacturing/prototype/T41-R0C
 ```
 
 How the generator gets a clean route:
@@ -116,4 +116,4 @@ How the generator gets a clean route:
 - For routing, each ground pad and its fan-out get a private net, and the two ground-plane layers are removed from the Specctra file. The router therefore only uses F.Cu, In2, In3 and B.Cu, and leaves the planes intact.
 - The isoSPI band and the CAN isolation gaps are temporary keepouts during routing; the final board checks them with the DRC rules instead.
 
-Routing is not deterministic, so a regenerated board needs a new DRC run and a new manufacturing package. The `pcb` stage overwrites the routed board. The committed board reports zero ERC, DRC, unconnected-item and schematic-parity findings at all severities in KiCad 10.0.8 ([reports](../../tests/T41-R0B/)).
+Routing is not deterministic, so a regenerated board needs a new DRC run and a new manufacturing package. The `pcb` stage overwrites the routed board. The committed board reports zero ERC, DRC, unconnected-item and schematic-parity findings at all severities in KiCad 10.0.8 ([reports](../../tests/T41-R0C/)).

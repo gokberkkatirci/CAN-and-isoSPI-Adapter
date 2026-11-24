@@ -4,7 +4,7 @@ Two USB-serial bridge sketches: [Nano R4 adapter](#nano-r4-adapter) and [Teensy 
 
 ## Nano R4 adapter
 
-The sketch in [CanIsoSpiAdapter](CanIsoSpiAdapter/CanIsoSpiAdapter.ino) exposes Classical CAN and raw isoSPI transfers over the Nano R4's native USB serial port. It is intended for bench bring-up on R0A to R0D. It uses the Arduino UNO R4 core's bundled CAN and SPI libraries.
+The sketch in [CanIsoSpiAdapter](CanIsoSpiAdapter/CanIsoSpiAdapter.ino) exposes Classical CAN and raw isoSPI transfers over the Nano R4's native USB serial port. It is intended for bench bring-up on R0A to R0E. It uses the Arduino UNO R4 core's bundled CAN and SPI libraries.
 
 ### Build and flash
 
@@ -82,4 +82,4 @@ The six TPS2553 fault outputs share one line, so a supply fault switches every o
 
 ### Verification status
 
-The sketch has passed only a host syntax check against stub headers; it has not been built with Teensyduino or run on hardware. See [firmware verification](../tests/T41-R0B/firmware.md).
+The sketch has passed only a host syntax check against stub headers; it has not been built with Teensyduino or run on hardware. See [firmware verification](../tests/T41-R0C/firmware.md).

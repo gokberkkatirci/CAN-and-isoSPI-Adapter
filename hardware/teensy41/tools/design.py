@@ -11,8 +11,8 @@ counter-clockwise in degrees.
 
 PROJECT = "CAN6_isoSPI6_T41"
 TITLE = "Six CAN and six isoSPI adapter - Teensy 4.1"
-REV = "R0B"
-DATE = "2026-11-19"
+REV = "R0C"
+DATE = "2026-11-24"
 
 BOARD_W = 216.0
 BOARD_H = 120.0
@@ -23,7 +23,7 @@ CAN_CX = [25.5 + 33.0 * i for i in range(6)]        # DSUB column centres
 PORT_X = list(CAN_CX)                                # isoSPI port N sits opposite CAN port N
 ADBMS_X = [(PORT_X[2 * k] + PORT_X[2 * k + 1]) / 2.0 for k in range(3)]
 ADBMS_Y = 36.5
-ISO_T_Y = 20.0                                      # isoSPI transformer centre
+ISO_T_Y = 19.6                                      # isoSPI transformer centre (pads clear the 16.5-23.5 band)
 TERM_Y = 5.65                                       # isoSPI terminal pin row
 TEENSY_X1 = 14.0                                    # first header pin (USB end)
 TEENSY_YC = 53.0
@@ -37,7 +37,7 @@ DSUB_ORIGIN_DY = BOARD_H - 0.5 - 8.215              # vertical DSUB: pin 1 row, 
 STD = "std"     # KiCad standard footprint libraries
 LOC = "T41"     # project-local library (T41Carrier.pretty)
 
-# --- Purchasing data (JLCPCB parts library checked 2026-11-08) --------------
+# --- Purchasing data (JLCPCB parts library checked 2026-11-08; transformers 2026-11-24) --
 # name: (value, MPN, manufacturer, JLCPCB code, footprint lib, footprint, assembly)
 PARTS = {
     "C100n":  ("100nF", "CL31B104KBCNNNC", "Samsung", "C24497", "Capacitor_SMD", "C_1206_3216Metric", "SMT"),
@@ -64,8 +64,8 @@ PARTS = {
     "ISO1042": ("ISO1042DWR", "ISO1042DWR", "Texas Instruments", "C1848126", "Package_SO", "SOIC-16W_7.5x10.3mm_P1.27mm", "SMT"),
     "TPS2553": ("TPS2553DBVR", "TPS2553DBVR", "Texas Instruments", "C55266", "Package_TO_SOT_SMD", "SOT-23-6", "SMT"),
     "SN6505": ("SN6505BDBVR", "SN6505BDBVR", "Texas Instruments", "C74518", "Package_TO_SOT_SMD", "SOT-23-6", "SMT"),
-    "WE760":  ("760390014", "760390014", "Wurth Elektronik", "C2802211", LOC, "WE_760390014", "SMT"),
-    "TLV767": ("TLV76750DGNR", "TLV76750DGNR", "Texas Instruments", "C3752807", "Package_SO", "MSOP-8-1EP_3x3mm_P0.65mm_EP1.73x1.85mm", "SMT"),
+    "MXPP6":  ("MXPP6-3K6110", "MXPP6-3K6110", "Wuxi Maxinmicro", "C19943838", LOC, "MXPP6-3K6110", "SMT"),
+    "TPS7A16": ("TPS7A1650QDGNRQ1", "TPS7A1650QDGNRQ1", "Texas Instruments", "C2832237", "Package_SO", "MSOP-8-1EP_3x3mm_P0.65mm_EP1.73x1.85mm", "SMT"),
     "PESD":   ("PESD2CANFD24V-TR", "PESD2CANFD24V-TR", "Nexperia", "C552486", "Package_TO_SOT_SMD", "SOT-23", "SMT"),
     "EG1218": ("EG1218", "EG1218", "E-Switch", "C273394", LOC, "EG1218", "THT"),
     "DSUB9F": ("DSUB-9 female", "DS1034-09FBN044", "CONNFLY", "C19268322", "Connector_Dsub",
@@ -73,7 +73,7 @@ PARTS = {
     "MCP2518": ("MCP2518FDT-E/SL", "MCP2518FDT-E/SL", "Microchip", "C626758", "Package_SO", "SOIC-14_3.9x8.7mm_P1.27mm", "SMT"),
     "XTAL40": ("40MHz", "X322540MPB4SI", "YXC", "C9010", "Crystal", "Crystal_SMD_3225-4Pin_3.2x2.5mm", "SMT"),
     "ADBMS":  ("ADBMS6822WCCSZ-RL", "ADBMS6822WCCSZ-RL", "Analog Devices", "C19190031", LOC, "ADBMS6822_05-08-7057", "SMT"),
-    "SM918":  ("SM91801AL-E", "SM91801AL-E", "Bourns", "C26423704", LOC, "SM91801AL-E", "SMT"),
+    "HM1238": ("HM1238NLTP", "HM1238NLTP-CND", "CND-tek", "C49230397", LOC, "HM1238NLTP", "SMT"),
     "MKDS2":  ("isoSPI terminal", "1715721", "Phoenix Contact", "C480516", "TerminalBlock_Phoenix",
                "TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal", "THT"),
     "SOCK24": ("Teensy socket 1x24", "HC-PM254-8.5H-1x24PZ", "Hong Cheng", "C41376163", "Connector_PinSocket_2.54mm",
@@ -126,12 +126,14 @@ SYMBOLS = {
     "SN6505B": dict(kind="box", ref="U", w=20.32,
                     left=[("2", "VCC", PI), ("5", "EN", IN), ("6", "CLK", IN)],
                     right=[("1", "D1", OC), ("3", "D2", OC), ("4", "GND", PI)]),
-    "WE760390014": dict(kind="box", ref="T", w=20.32,
-                        left=[("1", "PRI1", P), ("2", "PRI_CT", P), ("3", "PRI2", P)],
-                        right=[("6", "SEC1", P), ("5", "SEC_CT", P), ("4", "SEC2", P)]),
-    "TLV76750": dict(kind="box", ref="U", w=20.32,
-                     left=[("8", "IN", PI), ("5", "EN", IN), ("3", "NC", P), ("7", "NC", P)],
-                     right=[("1", "OUT", PO), ("2", "SNS", IN), ("4", "GND", PI), ("6", "GND", PI), ("9", "EP", PI)]),
+    "MXPP6_3K6110": dict(kind="box", ref="T", w=20.32,
+                         left=[("1", "PRI1", P), ("2", "PRI_CT", P), ("3", "PRI2", P)],
+                         right=[("6", "SEC1", P), ("5", "SEC_CT", P), ("4", "SEC2", P)]),
+    # TPS7A1650-Q1 (fixed 5 V): pin 2 FB/NC and pin 6 have no internal connection, so
+    # they keep the R0B copper (pin 2 on OUT, pin 6 on GND); PG and DELAY stay open.
+    "TPS7A1650": dict(kind="box", ref="U", w=20.32,
+                      left=[("8", "IN", PI), ("5", "EN", IN), ("3", "PG", P), ("7", "DELAY", P)],
+                      right=[("1", "OUT", PO), ("2", "NC", P), ("4", "GND", PI), ("6", "NC", P), ("9", "EP", PI)]),
     "PESD2CANFD": dict(kind="box", ref="D", w=15.24,
                        left=[("1", "IO1", P), ("2", "IO2", P)], right=[("3", "COMMON", P)]),
     "EG1218": dict(kind="switch", ref="SW"),
@@ -152,9 +154,9 @@ SYMBOLS = {
                              ("30", "VDDS2", PI), ("31", "INTR2", P), ("32", "WAKE2", P), ("17", "GND2", PI), ("18", "IM2", P),
                              ("19", "IP2", P), ("20", "VDD2", PI), ("21", "VP2", PI), ("22", "PHAPOL2", P), ("23", "RTO2", P),
                              ("24", "XCVRMD2", P)]),
-    "SM91801AL": dict(kind="box", ref="T", w=25.4,
-                      left=[("1", "PRI+", P), ("2", "PRI_CT", P), ("3", "PRI-", P)],
-                      right=[("6", "SEC+", P), ("5", "SEC_CT", P), ("4", "SEC-", P)]),
+    "HM1238NLTP": dict(kind="box", ref="T", w=25.4,
+                       left=[("1", "PRI+", P), ("2", "PRI_CT", P), ("3", "PRI-", P)],
+                       right=[("6", "SEC+", P), ("5", "SEC_CT", P), ("4", "SEC-", P)]),
     "TERM2": dict(kind="box", ref="J", w=10.16, left=[("2", "+", P), ("1", "-", P)], right=[]),
 }
 
@@ -268,12 +270,12 @@ for n in range(1, 7):
     add("U%d" % (b + 3), "SN6505B", "SN6505",
         {"1": "CAN%d_PPA" % n, "2": "CAN%d_PWR" % n, "3": "CAN%d_PPB" % n, "4": "GND", "5": "CAN%d_PWR" % n,
          "6": "GND"}, (cx + 9.0, 77.5, 90), G)
-    add("T%d" % (b + 1), "WE760390014", "WE760",
+    add("T%d" % (b + 1), "MXPP6_3K6110", "MXPP6",
         {"1": "CAN%d_PPB" % n, "2": "CAN%d_PWR" % n, "3": "CAN%d_PPA" % n, "4": I("RB"), "5": I("GND"),
          "6": I("RA")}, (cx + 9.0, 86.0, 270), G)
     add("D%d" % (b + 1), "diode", "SCHOT", {"1": I("RECT"), "2": I("RA")}, (cx + 14.0, 95.0, 90), G)
     add("D%d" % (b + 2), "diode", "SCHOT", {"1": I("RECT"), "2": I("RB")}, (cx + 4.0, 95.0, 90), G)
-    add("U%d" % (b + 4), "TLV76750", "TLV767",
+    add("U%d" % (b + 4), "TPS7A1650", "TPS7A16",
         {"1": I("5V"), "2": I("5V"), "3": NC, "4": I("GND"), "5": I("RECT"), "6": I("GND"), "7": NC,
          "8": I("RECT"), "9": I("GND")}, (cx + 9.0, 99.5, 0), G)
     add("D%d" % (b + 3), "PESD2CANFD", "PESD", {"1": I("H"), "2": I("L"), "3": I("GND")}, (cx - 4.5, 96.0, 0), G)
@@ -336,7 +338,7 @@ for k in range(1, 4):
     R("R%d" % (b + 2), "R10k", "ISO_CS%d" % pb, "+3V3", (x - 11.0, 33.0, 90), G)
     for j, p in enumerate((pb, pa)):
         xp = PORT_X[p - 1]
-        add("T%d" % (b + 1 + j), "SM91801AL", "SM918",
+        add("T%d" % (b + 1 + j), "HM1238NLTP", "HM1238",
             {"1": "ISO%d_IP" % p, "2": NC, "3": "ISO%d_IM" % p, "4": "ISO%dC_N" % p, "5": NC,
              "6": "ISO%dC_P" % p}, (xp, ISO_T_Y, 90), G)
         R("R%d" % (b + 3 + j), "R100", "ISO%d_IP" % p, "ISO%d_IM" % p, (xp, 30.0, 0), G)

@@ -32,6 +32,13 @@ Access date: **2026-11-07**. Manufacturer documentation supports technical claim
 25. YIYUAN, *YTC1P-8535-01* pogo pin listing (2 mm barrel, 12 mm free length, 11 mm working height). [JLCPCB part](https://jlcpcb.com/partdetail/C5221289).
 26. USB Implementers Forum, *USB Type-C Cable and Connector Specification*, sink CC voltage ranges for default, 1.5 A and 3.0 A current advertisements (used by the firmware power budget).
 
+## R0E / T41-R0C replacement parts (checked 2026-11-24)
+
+27. CND-tek, *HM1238NLTP* isoSPI transformer datasheet. Used for the 1,000 V DC working voltage, basic insulation per ISO 6469 / IEC 61558, 4,300 V DC hipot, 1CT:1CT ratio, OCL, insertion loss and the package drawing (10.50 mm over the leads, 7.69 mm across the lead rows, uneven 3.81/2.54 mm lead pitch). The drawing has no pin-1 mark. [JLCPCB part with datasheet](https://jlcpcb.com/partdetail/C49230397).
+28. Wuxi Maxinmicro, *MXPP6-3K6110* push-pull transformer datasheet. Used for the 1:1.1 ratio, the winding schematic (1-2-3 : 4-5-6, centre taps 2 and 5), 3 kV DC/1 s insulation and the package dimensions. [JLCPCB part with datasheet](https://jlcpcb.com/partdetail/C19943838). No datasheet was found for the 1:1.3 MXPP6-3K6130 ([C55233146](https://jlcpcb.com/partdetail/C55233146)).
+29. Texas Instruments, *TPS7A16-Q1*, SBVS188E, May 2023. Used for the DGN pinout (pin 2 FB/NC and pin 6 have no internal connection on the fixed versions), EN ≤ IN, PG/DELAY may be left open, the 101 mA minimum current limit and the output capacitor ≥ 2.2 µF. [Datasheet](https://www.ti.com/lit/ds/symlink/tps7a16-q1.pdf).
+30. JLCPCB, *part detail pages* for all 41 C-codes on both BOMs, 2026-11-24. Stock quantities are recorded in [components.md](components.md#stock-check-2026-11-24).
+
 ## Verification limits
 
 This is a source-backed planning package, not a validated circuit. Full ADBMS6832 design/timing documentation, PCB insulation coordination, exact socket selection, remaining passives/protection, worst-case power calculations and physical tests are unfinished. Component certifications are not transferred automatically to the board. Manufacturer reference circuits inform the design but have not been copied as an already-verified PCB.

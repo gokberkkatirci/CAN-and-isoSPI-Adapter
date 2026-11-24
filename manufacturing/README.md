@@ -1,11 +1,11 @@
 # Manufacturing workflow
 
-Prototype exports: [Nano R4 adapter R0D](prototype/R0D/README.md) and [Teensy 4.1 adapter R0B](prototype/T41-R0B/README.md). Each contains draft BOM, CPL, Gerber and drill data from the checked native source. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
+Prototype exports: [Nano R4 adapter R0E](prototype/R0E/README.md) and [Teensy 4.1 adapter T41-R0C](prototype/T41-R0C/README.md). Each contains the BOM, CPL, Gerber and drill data exported from the checked native source, with ordering steps. All parts were in stock at JLCPCB on 2026-11-24. Review stock, PCBA rotations, mechanical fit and the intended test scope before ordering.
 
 ## Release sequence
 
 1. Finish source design and verify the selected JLCPCB fabrication stackup and mixed SMT/through-hole assembly service. Confirm whether sockets, terminals and switches are included in the quoted process; install the Nano or Teensy module separately unless explicitly covered.
-2. Resolve shortages, especially **SM91801AL-E (two per Nano board, six per Teensy board)**, and all unspecified parts. Recheck exact manufacturer/MPN/C-code, lifecycle, stock, assembly attrition and quantities at order time.
+2. Resolve shortages and all unspecified parts. On 2026-11-24 every part was in stock; the scarcest were EG1218 (139) and ISO1042DWR (206) ([stock list](../docs/components.md#stock-check-2026-11-24)). Recheck exact manufacturer/MPN/C-code, lifecycle, stock, assembly attrition and quantities at order time.
 3. Approve ERC, DRC, footprint audit, power/insulation calculations and mechanical fit. Assign a hardware revision and record KiCad version.
 4. Export Gerbers, plated/non-plated drill data, schematic PDF, assembly drawings and layer/stackup notes from the same source revision.
 5. Export JLCPCB BOM with `Comment`, `Designator`, `Footprint`, `JLCPCB Part #`. Verify the current uploader's accepted columns when exporting. Include one exact purchasable component per grouped line; exclude DNP and separately installed items from the assembly BOM while documenting them in the full engineering BOM.

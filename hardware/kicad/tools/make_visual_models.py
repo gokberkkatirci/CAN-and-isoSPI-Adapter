@@ -7,7 +7,6 @@ TIN = (.72, .75, .77)
 GOLD = (.86, .62, .23)
 BLACK = (.085, .09, .10)
 FERRITE = (.25, .26, .29)
-GREEN = (.045, .29, .15)
 TEAL = (.03, .44, .49)
 WHITE = (.86, .86, .82)
 
@@ -58,30 +57,32 @@ def qfn():
     write('ADBMS6822_05-08-7057','ADI package 05-08-7057 visual approximation.',objects)
 
 
-def bourns():
-    objects = [box(0,0,.54,13.6,8.5,.74,BLACK),
-               box(-4.3,0,1.15,5.0,8.32,.62,GREEN),box(4.3,0,1.15,5.0,8.32,.62,GREEN),
-               box(0,0,2.76,8.05,8.25,3.32,FERRITE),
-               box(0,0,4.71,8.3,8.3,1.38,FERRITE),
-               box(-5.45,3.18,1.48,.62,.58,.08,WHITE)]
+def cndtek():
+    # CND-tek HM1238NLTP: 7.69 mm across the lead rows, 4.25 mm tall, 10.50 mm
+    # over the gull-wing leads, uneven 3.81/2.54 mm lead pitch. Model Y = -footprint Y.
+    objects = [box(0,0,2.225,7.69,8.1,4.05,BLACK),
+               box(0,0,4.26,7.3,7.7,.02,FERRITE),
+               box(-2.9,2.9,4.28,.6,.6,.02,WHITE)]
     for side in (-1,1):
-        for y in (-2.54,0,2.54):
-            objects += [box(side*6.35,y,.11,1.3,.5,.22,TIN),
-                        box(side*6.06,y,.50,.29,.5,.78,TIN),
-                        box(side*6.12,y,1.48,1.35,.5,.15,TIN)]
-    write('SM91801AL-E','Bourns SM91801AL datasheet envelope and leads.',objects)
+        for y in (3.175,-.635,-3.175):
+            objects += [box(side*4.75,y,.1,1.0,.5,.2,TIN),
+                        box(side*4.15,y,.65,.2,.5,1.1,TIN),
+                        box(side*3.97,y,1.15,.36,.5,.2,TIN)]
+    write('HM1238NLTP','CND-tek HM1238NLTP datasheet envelope and leads.',objects)
 
 
-def wurth():
-    objects = [box(0,0,.56,7.14,6.73,1.03,BLACK),
-               box(0,0,2.4,7.05,6.65,3.35,FERRITE),
-               box(0,0,4.105,6.7,6.4,.17,BLACK),
-               box(-2.58,2.25,4.198,.45,.45,.018,WHITE)]
+def maxin():
+    # Wuxi Maxinmicro MXPP6-3K6110: 7.10 x 6.55 mm, 4.2 mm max height,
+    # 10.2 mm max over the leads, 2.54 mm pitch.
+    objects = [box(0,0,.56,7.10,6.55,1.03,BLACK),
+               box(0,0,2.4,7.0,6.45,3.35,FERRITE),
+               box(0,0,4.105,6.7,6.2,.17,BLACK),
+               box(-2.58,2.2,4.198,.45,.45,.018,WHITE)]
     for side in (-1,1):
         for y in (-2.54,0,2.54):
-            objects += [box(side*4.45,y,.09,1.25,.65,.18,TIN),
-                        box(side*3.9,y,.45,.26,.65,.73,TIN)]
-    write('WE_760390014','Würth WE-PPTI 760390014 datasheet envelope and leads.',objects)
+            objects += [box(side*4.45,y,.09,1.25,.6,.18,TIN),
+                        box(side*3.9,y,.45,.26,.6,.73,TIN)]
+    write('MXPP6-3K6110','Maxinmicro MXPP6-3K6110 datasheet envelope and leads.',objects)
 
 
 def switch():
@@ -184,8 +185,8 @@ def usbc():
 if __name__ == '__main__':
     DEST.mkdir(exist_ok=True)
     qfn()
-    bourns()
-    wurth()
+    cndtek()
+    maxin()
     switch()
     nano()
     teensy41()

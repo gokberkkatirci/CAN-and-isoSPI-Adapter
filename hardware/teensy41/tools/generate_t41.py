@@ -329,7 +329,7 @@ def write_schematic(used):
         "J4/J5 pogo pins reach the Teensy USB device D-/D+ pads under the module; the carrier USB-C carries data and power.",
         "CAN1-3 use Teensy FlexCAN1-3; CAN4-6 use MCP2518FD on SPI1. Each CAN port has its own isolated supply and ground.",
         "DSUB-9 female, CiA 303-1 / PEAK pinout: 2 CAN_L, 7 CAN_H, 3 and 6 CAN_GND, 5 and shell to shield RC.",
-        "isoSPI ports use SM91801AL-E (1000 V DC working, basic insulation). Keep 8 mm copper clearance per port.",
+        "isoSPI ports use CND-tek HM1238NLTP (1000 V DC working, basic insulation). Keep 8 mm copper clearance per port.",
     ]
     for i, t in enumerate(notes):
         texts.append('(text %s (exclude_from_sim no) (at 896 %s 0) (effects (font (size 1.8 1.8)) (justify left bottom)) (uuid %s))'
@@ -425,8 +425,8 @@ def fp_path(lib):
 MODELS = {
     "ADBMS6822_05-08-7057": "ADBMS6822_05-08-7057.wrl",
     "EG1218": "EG1218.wrl",
-    "SM91801AL-E": "SM91801AL-E.wrl",
-    "WE_760390014": "WE_760390014.wrl",
+    "HM1238NLTP": "HM1238NLTP.wrl",
+    "MXPP6-3K6110": "MXPP6-3K6110.wrl",
     "Pogo_YTC1P-8535_D2.0mm": "Pogo_YTC1P-8535.wrl",
 }
 
@@ -628,17 +628,21 @@ def build_pcb(sym_uuid):
     for n in range(1, 7):
         make_zone(board, net("/CAN%dI_GND" % n), [L1, L4], can_zone_rect(n), "CAN%d_ISO_GND" % n)
 
-    # isoSPI cable-domain tracks (short, straight, 0.8 mm)
+    # isoSPI cable-domain tracks (short, 0.8 mm): HM1238NLTP cable pads sit at
+    # +/-3.175 mm, the terminal pins at +/-2.54 mm, so each track has one short jog.
     for p in range(1, 7):
         xp = D.PORT_X[p - 1]
-        for dx, nn in ((-2.54, "/ISO%dC_P" % p), (2.54, "/ISO%dC_N" % p)):
-            t = pcbnew.PCB_TRACK(board)
-            t.SetStart(pt(xp + dx, D.ISO_T_Y - 6.35))
-            t.SetEnd(pt(xp + dx, D.TERM_Y))
-            t.SetWidth(mm(0.8))
-            t.SetLayer(pcbnew.F_Cu)
-            t.SetNet(net(nn))
-            board.Add(t)
+        for sgn, nn in ((-1, "/ISO%dC_P" % p), (1, "/ISO%dC_N" % p)):
+            pad_y = D.ISO_T_Y - 4.825
+            for (x0, y0), (x1, y1) in (((xp + sgn * 3.175, pad_y), (xp + sgn * 2.54, pad_y - 0.635)),
+                                       ((xp + sgn * 2.54, pad_y - 0.635), (xp + sgn * 2.54, D.TERM_Y))):
+                t = pcbnew.PCB_TRACK(board)
+                t.SetStart(pt(x0, y0))
+                t.SetEnd(pt(x1, y1))
+                t.SetWidth(mm(0.8))
+                t.SetLayer(pcbnew.F_Cu)
+                t.SetNet(net(nn))
+                board.Add(t)
 
     silkscreen(board)
     fanout(board)

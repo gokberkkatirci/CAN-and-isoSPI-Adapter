@@ -1,6 +1,6 @@
 # Verification and acceptance plan
 
-Nano R4 adapter R0D and Teensy 4.1 adapter R0B pass schematic ERC, PCB DRC and schematic parity in KiCad 10.0.8 ([R0D reports](R0D/), [T41-R0B reports](T41-R0B/)). The Nano R4 sketch compiled with Arduino Renesas core 1.6.0; the Teensy sketch is not yet compiled. Hardware bring-up remains pending for both boards.
+Nano R4 adapter R0E and Teensy 4.1 adapter T41-R0C pass schematic ERC, PCB DRC and schematic parity in KiCad 10.0.8 ([R0E reports](R0E/), [T41-R0C reports](T41-R0C/)). Measure the isolated CAN 5 V on every port with the bus dominant: since R0E/T41-R0C the 1:1.1 supply transformer leaves the LDO near dropout ([R0E notes](../docs/r0e.md#still-open)). The Nano R4 sketch compiled with Arduino Renesas core 1.6.0; the Teensy sketch is not yet compiled. Hardware bring-up remains pending for both boards.
 
 The steps below apply to both boards. For the Teensy adapter, repeat the CAN and isoSPI checks on every port, and also confirm USB enumeration through the pogo pins with the Teensy VIN–VUSB pads joined, the +5 V inrush current at hot-plug, the CC-based power budget, and that each CAN port's supply switches on and off independently.
 

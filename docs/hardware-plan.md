@@ -2,11 +2,13 @@
 
 Design baseline, 2026-11-07. The [R0A electrical notes](r0a.md) describe the circuit implemented in the [R0B layout](r0b.md). Source identifiers refer to [references](references.md). Values labelled provisional are engineering proposals, not verified production specifications.
 
+> **Update 2026-11-24 (Nano R0E, Teensy T41-R0C).** JLCPCB could no longer supply three of the parts below. The Bourns SM91801AL-E was replaced by the **CND-tek HM1238NLTP**, which has the same 1,000 V DC working voltage and basic insulation. The Würth 760390014 was replaced by the **Maxinmicro MXPP6-3K6110**, with the same pinout and a 1:1.1 ratio. The TLV76750DGNR was replaced by the **TI TPS7A1650QDGNRQ1**, which uses the same land pattern. See [components](components.md#changes-for-stock-r0e-t41-r0c).
+
 ## Requirements and selection
 
 Use a socketed Arduino Nano R4 with headers (ABX00143), one Classical CAN interface up to 1 Mbit/s, and two isoSPI ports through an ADBMS6822. Two ports allow access to either end of a reversible chain or two independent chains; a single shared SPI bus services them sequentially. The [USB bridge firmware](../firmware/README.md) exposes raw isoSPI transfers for the host application. Native USB carries commands and acquired data and supports programming.
 
-The requirement is 1 kV **working voltage**. For this battery application, the design interpretation is **1,000 V DC continuous across each isoSPI transformer barrier**. Select **two Bourns SM91801AL-E**. Basic insulation is the component baseline; whether the complete application needs reinforced insulation remains a system-level decision. The CAN barrier is a separate specification and is not assigned a 1 kV working rating by this selection.
+The requirement is 1 kV **working voltage**. For this battery application, the design interpretation is **1,000 V DC continuous across each isoSPI transformer barrier**. Select **two transformers rated for 1,000 V DC working voltage with basic insulation**: originally Bourns SM91801AL-E, since R0E the CND-tek HM1238NLTP. Basic insulation is the component baseline; whether the complete application needs reinforced insulation remains a system-level decision. The CAN barrier is a separate specification and is not assigned a 1 kV working rating by this selection.
 
 The R0A carrier is 85 × 70 mm, with four layers and mostly 1206 resistors/capacitors. Physical module and enclosure fit are pending. CAN and isoSPI screw terminals occupy opposite edges. The Nano socket is the only defined module interface; no additional board-to-board mating connector is defined.
 
@@ -50,25 +52,25 @@ Provide a TXD pull-up for recessive startup. ISO1042 has no standby control in t
 
 Use 5 V for VDD and VP in this USB-powered application. Fit local bypass capacitors at each supply pin, including at least the specified 1 µF at VDD. Do not assume key-off monitoring continues after USB removal. Review supply sequencing and status-pin levels before connecting them directly to the Nano [4].
 
-Each channel gets its own **SM91801AL-E** transformer and two-pin terminal. Copy no generic Ethernet magnetics pinout: validate winding polarity, center taps, footprint and any unused pins from the exact manufacturer drawing. Start termination/matching design from ADI's circuit, then calculate against the actual cable and slave-board network. CAN's 120 Ω value is not automatically applicable to isoSPI. Final matching and any low-capacitance differential protection remain schematic-design tasks. No protection component may bridge a cable domain to USB ground.
+Each channel gets its own 1 kV-working isoSPI transformer (**HM1238NLTP** since R0E) and two-pin terminal. Copy no generic Ethernet magnetics pinout: validate winding polarity, center taps, footprint and any unused pins from the exact manufacturer drawing. Start termination/matching design from ADI's circuit, then calculate against the actual cable and slave-board network. CAN's 120 Ω value is not automatically applicable to isoSPI. Final matching and any low-capacitance differential protection remain schematic-design tasks. No protection component may bridge a cable domain to USB ground.
 
 **ADBMS1818 is a 1 Mbit/s device; ADBMS6832 advertises 2 Mbit/s isoSPI** [6,7]. Do not operate an 1818 chain at 2 Mbit/s or presume these ICs are interchangeable. The public 6832 document is a short datasheet: obtain its full timing/design information and exact slave-board revision before final compatibility sign-off. The common adapter topology is reasonable; detailed timing and magnetics compatibility still need verification. Active interrogation is supported; passive sniffing of a chain driven by another master is a different topology.
 
 ## 1 kV DC insulation implementation
 
-SM91801AL-E is selected for its explicitly specified 1,000 V DC working voltage and basic insulation. Its separate dielectric test ratings are 4,300 V DC / 2,500 V AC. The datasheet specifies minimum 5 mm component creepage/clearance with stated environmental/material conditions [9]. These component dimensions do not define the required PCB spacing automatically.
+SM91801AL-E was selected for its explicitly specified 1,000 V DC working voltage and basic insulation. Its separate dielectric test ratings are 4,300 V DC / 2,500 V AC. The datasheet specifies minimum 5 mm component creepage/clearance with stated environmental/material conditions [9]. Its R0E replacement, HM1238NLTP, specifies 1,000 V DC working voltage, basic insulation per ISO 6469 / IEC 61558 and a 4,300 V DC hipot [27]. These component dimensions do not define the required PCB spacing automatically.
 
 Reserve an initial **8 mm board isolation corridor** around the isolated port domains, subject to the later insulation-coordination calculation and the transformer land pattern. This is a layout allowance, not a certified minimum. Calculate final spacing from actual PCB material CTI, pollution degree, altitude, transients, coating assumptions and protective-insulation requirement. Review all copper layers, pads, slots, screws, enclosure surfaces and external cable/terminal access. Keep MAIN and AUX domains appropriately separated from each other as well as from USB and CAN domains; they may be connected to different locations in a battery system.
 
 No ground plane, test pad, silkscreen annotation implying safe touch, shield connection or mounting hardware may bypass a required barrier. Slots may increase creepage but do not automatically satisfy clearance. Neither a passing bench hipot test nor a transformer rating alone certifies the complete adapter for 1 kV operation.
 
-The previously considered **Pulse HM2101NLT** has a stated 1 kV working voltage but functional insulation [10]. It is not an approved substitute for the selected basic-insulation Bourns part.
+The previously considered **Pulse HM2101NLT** has a stated 1 kV working voltage but functional insulation [10]. It is not an approved substitute for a basic-insulation part.
 
 ## Power design and budget
 
 USB → Nano power path → 5 V header → **TPS2553DBVR** current-limited switch → external high-current loads. Keep load enable low until firmware has established its permitted USB power state. Logic supplies and signal states must be coordinated to prevent back-powering: provision VDDS from the MCU rail, gate VDD/VP and isolated CAN power only if ADI's sequencing requirements allow it. Final rail partition is a schematic review item.
 
-Candidate isolated CAN supply: **SN6505BDBVR + Würth 760390014 + rectifiers + TLV76750DGNR**. The power transformer and regulator require worst-case headroom, magnetic flux, rectifier loss and thermal calculations [11–13]. The 760390014 datasheet specifies an AC insulation test; a 1 kV DC continuous working rating for this complete supply has not been established. The proposed CAN isolation is intended for a low-voltage CAN network and must be redesigned if the CAN side also needs a 1 kV working barrier.
+Isolated CAN supply: **SN6505BDBVR + push-pull transformer + rectifiers + 5 V LDO**. This was originally the Würth 760390014 (1:1.3) with a TLV76750DGNR; since R0E it is the Maxinmicro MXPP6-3K6110 (1:1.1) with a TPS7A1650QDGNRQ1. The 1:1.1 ratio leaves the LDO near dropout ([headroom](components.md#can-supply-transformer-maxinmicro-mxpp6-3k6110)). The power transformer and regulator require worst-case headroom, magnetic flux, rectifier loss and thermal calculations [11–13]. The transformer datasheets specify short insulation tests (760390014 AC; MXPP6-3K6110 3 kV DC for 1 s); a 1 kV DC continuous working rating for this complete supply has not been established. The proposed CAN isolation is intended for a low-voltage CAN network and must be redesigned if the CAN side also needs a 1 kV working barrier.
 
 Provisional budgeting allowances, not measured current:
 
